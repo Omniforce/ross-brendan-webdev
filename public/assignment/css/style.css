@@ -5,3 +5,27 @@ input.form-control {
 body {
     padding-top: 36px;
 }
+
+.blue-navbar {
+	background-color: #428bca;
+}
+
+.navbar-default .white-navbar-brand,
+.navbar-default .white-navbar-link {
+	color: #FFF;
+}
+
+.navbar-text.pull-right,
+.navbar-text.pull-left {
+	margin: 15px;
+}
+
+.clear-nav {
+	margin-top: 25px;
+}
+
+@media(min-width: 768px) {
+	.res-navbar-header {
+		width: 100%;
+	}
+}
