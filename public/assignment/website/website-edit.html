@@ -2,12 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../css/style.css" rel="stylesheet"/>
 </head>
 <body>
-	
+	<nav class="navbar navbar-default navbar-fixed-top blue-navbar">
+		<div class="container-fluid">
+			<p class="navbar-text pull-left">
+         		<a href="website-list.html" class="navbar-link white-navbar-link">
+            		<span class="glyphicon glyphicon-chevron-left"></span>
+          		</a>
+        	</p>
+        	<a class="navbar-brand bold-brand white-navbar-brand" href="#">Edit Website</a>
+        	<p class="navbar-text pull-right">
+        		<a href="website-list.html" class="navbar-link white-navbar-link">
+                	<span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </p>
+		</div>
+	</nav>
+
+	<div class="container clear-nav">
+		<form>
+			<div class="form-group">
+                <label for="name">Website Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Name" value="Blogger">
+            </div>
+            <div class="form-group">
+                <label for="description">Website Description</label>
+                <textarea class="form-control" rows="5" id="description" placeholder="Description">Blogger is a blog-publishing service that allows multi-user blogs with time-stamped entries. It was developed by Pyra Labs, which was bought by Google in 2003. Generally, the blogs are hosted by Google at a subdomain of blogspot.com. Blogs can also be hosted in the registered custom domain of the blogger (like www.example.com). A user can have up to 100 blogs per account.</textarea>
+            </div>
+		</form>
+
+        <a href="website-list.html" class="btn btn-danger form-control">Delete</a>
+	</div>
+
+	<nav class="navbar navbar-default navbar-fixed-bottom blue-navbar">
+        <div class="container-fluid">
+            <div class="navbar-text pull-right">
+                <a href="../user/profile.html" class="navbar-link white-navbar-link">
+                	<span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </nav>	
 </body>
 </html>

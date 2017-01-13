@@ -10,9 +10,23 @@ body {
 	background-color: #428bca;
 }
 
+.bold-brand {
+	font-weight: bold;
+}
+
 .navbar-default .white-navbar-brand,
 .navbar-default .white-navbar-link {
 	color: #FFF;
+}
+
+.navbar-default .blue-navbar-brand,
+.navbar-default .blue-navbar-link {
+	color: #428bca;
+}
+
+.borderless-list-group li {
+	color: #428bca;
+	border: none;
 }
 
 .navbar-text.pull-right,
@@ -21,7 +35,7 @@ body {
 }
 
 .clear-nav {
-	margin-top: 25px;
+	margin-top: 33px;
 }
 
 @media(min-width: 768px) {
