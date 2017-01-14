@@ -43,3 +43,7 @@ body {
 		width: 100%;
 	}
 }
+
+#uploadButton {
+	margin-bottom: 5px;
+}
