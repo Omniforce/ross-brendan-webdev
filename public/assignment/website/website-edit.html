@@ -9,24 +9,41 @@
     <link href="../css/websites.css" rel="stylesheet"/>
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top blue-navbar">
-		<div class="container-fluid">
-			<p class="navbar-text pull-left">
-         		<a href="website-list.html" class="navbar-link white-navbar-link">
-            		<span class="glyphicon glyphicon-chevron-left"></span>
-          		</a>
-        	</p>
-        	<a class="navbar-brand bold-brand white-navbar-brand" href="#">Edit Website</a>
-        	<p class="navbar-text pull-right">
-        		<a href="website-list.html" class="navbar-link white-navbar-link">
-                	<span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </p>
-		</div>
-	</nav>
+    <nav class="navbar navbar-default navbar-fixed-top blue-navbar">
+        <div class="container-fluid">
+            <div class="navbar-header sidebar-nav display-only-desktop">
+                <p class="navbar-text pull-left">
+                    <a href="../user/profile.html" class="navbar-link white-navbar-link">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <a class="navbar-brand bold-brand white-navbar-brand" href="#">Websites</a>
+                <p class="navbar-text pull-right">
+                    <a href="website-new.html" class="navbar-link white-navbar-link">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </p>
+            </div>
+
+            <div class="container-fluid main-content-nav">
+                <p class="navbar-text pull-left display-only-mobile">
+                    <a href="website-list.html" class="navbar-link white-navbar-link">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <a class="navbar-brand bold-brand white-navbar-brand" href="#">Edit Website</a>
+                <p class="navbar-text pull-right">
+                    <a href="website-list.html" class="navbar-link white-navbar-link">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </nav>
+
 
 	<div class="clear-nav max-height">
-        <div class="display-only-desktop" id="sidebar">
+        <div class="display-only-desktop sidebar" id="sidebar-content">
             <ul class="list-group borderless-list-group">
                 <li class="list-group-item">
                     <a href="../page/page-list.html">Address Book App</a>
@@ -54,7 +71,7 @@
                 </li>
             </ul>
         </div>
-        <div class="max-height" id="mainContent">
+        <div class="max-height" id="main-content">
             <div id="content">
                 <form>
                     <div class="form-group">
