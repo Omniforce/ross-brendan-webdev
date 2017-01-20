@@ -1,0 +1,40 @@
+.widget {
+	position: relative;
+}
+
+.widget-edit-buttons {
+	background-color: #FFF;
+	border-radius: 0px 0px 0px 5px;
+	padding: 3px;
+
+	position: absolute;
+    top: 0px;
+    right: 0px;
+
+    z-index: 1;
+}
+
+.nt-inline {
+	display: inline-block;
+	float: left;
+	margin-right: 15px;
+    margin-left: 15px;
+}
+
+.clear-nav-bottom {
+	padding-bottom: 50px;
+}
+
+#netflix-img {
+   width: 661px;
+}
+
+.responsive-video {
+	margin-bottom: 5px;
+}
+
+.responsive-image {
+	max-width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+}

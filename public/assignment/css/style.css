@@ -5,3 +5,53 @@ input.form-control {
 body {
     padding-top: 36px;
 }
+
+.blue-navbar {
+	background-color: #428bca;
+}
+
+.bold-brand {
+	font-weight: bold;
+}
+
+.navbar-default .white-navbar-brand,
+.navbar-default .white-navbar-link {
+	color: #FFF;
+}
+
+.navbar-default .blue-navbar-brand,
+.navbar-default .blue-navbar-link {
+	color: #428bca;
+}
+
+.borderless-list-group li {
+	color: #428bca;
+	border: none;
+}
+
+.navbar-text.pull-right,
+.navbar-text.pull-left {
+	margin: 15px;
+}
+
+.clear-nav {
+	margin-top: 33px;
+}
+
+@media(min-width: 768px) {
+	.res-navbar-header {
+		width: 100%;
+	}
+}
+
+#uploadButton {
+	margin-bottom: 5px;
+}
+
+.black-icon {
+	color: #000;
+}
+
+a:hover {
+	text-decoration: none;
+}
