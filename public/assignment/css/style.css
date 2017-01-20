@@ -3,6 +3,7 @@ input.form-control {
 }
 
 body {
+	height: 100%;
     padding-top: 36px;
 }
 
@@ -54,4 +55,8 @@ body {
 
 a:hover {
 	text-decoration: none;
+}
+
+#view-div {
+	height: 100%;
 }

@@ -1,0 +1,89 @@
+<link href="css/websites.css" rel="stylesheet"/>
+
+<nav class="navbar navbar-default navbar-fixed-top blue-navbar">
+    <div class="container-fluid">
+        <div class="navbar-header sidebar-nav display-only-desktop">
+            <p class="navbar-text pull-left">
+                <a href="../user/profile.html" class="navbar-link white-navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </p>
+            <a class="navbar-brand bold-brand white-navbar-brand" href="#">Websites</a>
+            <p class="navbar-text pull-right">
+                <a href="website-new.html" class="navbar-link white-navbar-link">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </p>
+        </div>
+        <div class="container-fluid main-content-nav">
+            <p class="navbar-text pull-left display-only-mobile">
+                <a href="website-list.html" class="navbar-link white-navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </p>
+            <a class="navbar-brand bold-brand white-navbar-brand" href="#">Edit Website</a>
+            <p class="navbar-text pull-right">
+                <a href="website-list.html" class="navbar-link white-navbar-link">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+<div class="max-height">
+    <div class="display-only-desktop sidebar clear-nav-website" id="sidebar-content">
+        <ul class="list-group borderless-list-group">
+            <li class="list-group-item">
+                <a href="../page/page-list.html">Address Book App</a>
+                <a href="website-edit.html" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="../page/page-list.html">Blogger</a>
+                <a href="website-edit.html" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="../page/page-list.html">Blogging App</a>
+                <a href="website-edit.html" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="../page/page-list.html">Script Testing App</a>
+                <a href="website-edit.html" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="max-height clear-nav-website" id="main-content">
+        <div id="content">
+            <form>
+                <div class="form-group">
+                    <label for="name">Website Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Name" value="Blogger">
+                </div>
+                <div class="form-group">
+                    <label for="description">Website Description</label>
+                    <textarea class="form-control" rows="5" id="description" placeholder="Description">Blogger is a blog-publishing service that allows multi-user blogs with time-stamped entries. It was developed by Pyra Labs, which was bought by Google in 2003. Generally, the blogs are hosted by Google at a subdomain of blogspot.com. Blogs can also be hosted in the registered custom domain of the blogger (like www.example.com). A user can have up to 100 blogs per account.</textarea>
+                </div>
+            </form>
+
+            <a href="website-list.html" class="btn btn-danger btn-block">Delete</a>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom blue-navbar">
+    <div class="container-fluid">
+        <div class="navbar-text pull-right">
+            <a href="../user/profile.html" class="navbar-link white-navbar-link">
+            	<span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+</nav>
