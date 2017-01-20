@@ -51,3 +51,7 @@ body {
 .black-icon {
 	color: #000;
 }
+
+a:hover {
+	text-decoration: none;
+}
