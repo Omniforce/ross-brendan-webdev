@@ -24,10 +24,12 @@
 
         // THIS PROBABLY NEEDS TO BE UPDATED
         function createWebsite(userId, website) {
-            websites.push(websites);
+            website._id = genNewId();
+            website.developerId = userId;
+            websites.push(website);
         }
         function findWebsitesByUser(userId) {
-            return websites.find(function(website) {
+            return websites.filter(function(website) {
                 return userId == website.developerId;
             });
         }
@@ -47,7 +49,7 @@
             var websiteIndex = getIndexOfWebsite(websiteId);
 
             if (websiteIndex > -1) {
-                websites.splice(userIndex, 1);
+                websites.splice(websiteIndex, 1);
             }
         }
 
@@ -55,6 +57,18 @@
             return websites.findIndex(function(website) {
                 return websiteId == website._id;
             });
+        }
+
+
+        function genNewId() {
+            var newId = 1;
+            while(true) {
+                indexOfId = getIndexOfWebsite(newId);
+                if (indexOfId < 0) {
+                    return newId;
+                }
+                newId += 1;
+            }
         }
     }
 })();

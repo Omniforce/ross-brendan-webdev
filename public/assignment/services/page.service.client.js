@@ -11,7 +11,7 @@
         ]
         var api = {
             "createPage"          : createPage,
-            "findPageByWebsiteId" : findPageByWebsiteId,
+            "findPagesByWebsiteId": findPagesByWebsiteId,
             "findPageById"        : findPageById,
             "updatePage"          : updatePage,
             "deletePage"          : deletePage
@@ -19,12 +19,13 @@
 
         return api;
 
-        // THIS PROBABLY NEEDS TO BE UPDATED
         function createPage(websiteId, page) {
+            page._id = genNewId();
+            page.websiteId = websiteId;
             pages.push(page);
         }
-        function findPageByWebsiteId(websiteId) {
-            return pages.find(function(page) {
+        function findPagesByWebsiteId(websiteId) {
+            return pages.filter(function(page) {
                 return websiteId == page.websiteId;
             });
         }
@@ -52,6 +53,17 @@
             return pages.findIndex(function(page) {
                 return pageId == page._id;
             });
+        }
+
+        function genNewId() {
+            var newId = 1;
+            while(true) {
+                indexOfId = getIndexOfPage(newId);
+                if (indexOfId < 0) {
+                    return newId;
+                }
+                newId += 1;
+            }
         }
     }
 })();

@@ -7,9 +7,11 @@
 
     function WidgetListController() {
     	var vm = this;
+        vm.userId = $routeParams["uid"];
     }
     function NewWidgetController() {
     	var vm = this;
+        vm.userId = $routeParams["uid"];
     }
     function EditWidgetController($routeParams, WidgetService) {
     	var vm = this;

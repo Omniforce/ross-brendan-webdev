@@ -25,10 +25,12 @@
 
         // THIS PROBABLY NEEDS TO BE UPDATED
         function createWidget(pageId, widget) {
+            widget._id = genNewId();
+            widget.pageId = pageId;
             widgets.push(widget);
         }
         function findWidgetsByPageId(pageId) {
-            return widgets.find(function(widget) {
+            return widgets.filter(function(widget) {
                 return pageId == widget.pageId;
             });
         }
@@ -56,6 +58,17 @@
             return widgets.findIndex(function(widget) {
                 return widgetId == widget._id;
             });
+        }
+
+        function genNewId() {
+            var newId = 1;
+            while(true) {
+                indexOfId = getIndexOfWidget(newId);
+                if (indexOfId < 0) {
+                    return newId;
+                }
+                newId += 1;
+            }
         }
     }
 })();

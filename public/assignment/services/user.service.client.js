@@ -21,9 +21,12 @@
 
         return api;
 
-        // THIS PROBABLY NEEDS TO BE UPDATED
         function createUser(user) {
+            user._id = genNewId();
+            console.log(user);
+
             users.push(user);
+            return user;
         }
         function findUserById(userId) {
             return users.find(function(user) {
@@ -36,7 +39,7 @@
             });
         }
         function findUserByCredentials(username, password) {
-            users.find(function(user) {
+            return users.find(function(user) {
                 return username == user.username && password == user.password;
             });
         }
@@ -59,6 +62,17 @@
             return users.findIndex(function(u) {
                 return userId == u._id;
             });
+        }
+
+        function genNewId() {
+            var newId = 1;
+            while(true) {
+                indexOfId = getIndexOfUser(newId);
+                if (indexOfId < 0) {
+                    return newId;
+                }
+                newId += 1;
+            }
         }
     }
 })();
