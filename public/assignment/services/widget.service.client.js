@@ -14,11 +14,11 @@
             { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
         ]
         var api = {
-            "createWidget"       : "createWidget",
-            "findWidgetByPageId" : "findWidgetByPageId",
-            "findWidgetById"     : "findWidgetById",
-            "updateWidget"       : "updateWidget",
-            "deleteWidget"       : "deleteWidget"
+            "createWidget"       : createWidget,
+            "findWidgetByPageId" : findWidgetByPageId,
+            "findWidgetById"     : findWidgetById,
+            "updateWidget"       : updateWidget,
+            "deleteWidget"       : deleteWidget
         };
 
         return api;
