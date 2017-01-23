@@ -5,23 +5,57 @@
         .controller("NewWidgetController", NewWidgetController)
         .controller("EditWidgetController", EditWidgetController);
 
-    function WidgetListController() {
+    function WidgetListController($routeParams, $sce, WidgetService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
+        vm.websiteId = $routeParams["wid"];
+        vm.pageId = $routeParams["pid"];
+
+        vm.trustSrc = trustSrc;
+
+        function getEmbedUrl(url) {
+            var re = /.*\/(.*=)?(.*)/;
+            var videoId = url.match(re)[2];
+            return "https://www.youtube.com/embed/" + videoId;
+        }
+
+        function trustSrc(src) {
+            var embedUrl = getEmbedUrl(src);
+            return $sce.trustAsResourceUrl(embedUrl);
+        }
+
+        function init() {
+            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+        }
+        init();
     }
     function NewWidgetController() {
     	var vm = this;
         vm.userId = $routeParams["uid"];
     }
-    function EditWidgetController($routeParams, WidgetService) {
+    function EditWidgetController($routeParams, $location, WidgetService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
         vm.pageId = $routeParams["pid"];
         vm.widgetId = $routeParams["wgid"];
 
+        vm.updateWidget = updateWidget;
+        vm.deleteWidget = deleteWidget;
+
+        function updateWidget(widget) {
+            WidgetService.updateWidget(vm.widgetId, widget);
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+        }
+
+        function deleteWidget() {
+            WidgetService.deleteWidget(vm.widgetId);
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+        }
+
         function init() {
-            vm.page = WidgetService.findWidgetById(vm.widgetId);
+            vm.widget = WidgetService.findWidgetById(vm.widgetId);
+            console.log(vm.widget);
         }
         init();
     }

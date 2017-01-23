@@ -15,7 +15,7 @@
         ]
         var api = {
             "createWidget"       : createWidget,
-            "findWidgetByPageId" : findWidgetByPageId,
+            "findWidgetsByPageId": findWidgetsByPageId,
             "findWidgetById"     : findWidgetById,
             "updateWidget"       : updateWidget,
             "deleteWidget"       : deleteWidget
@@ -23,7 +23,6 @@
 
         return api;
 
-        // THIS PROBABLY NEEDS TO BE UPDATED
         function createWidget(pageId, widget) {
             widget._id = genNewId();
             widget.pageId = pageId;

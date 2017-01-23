@@ -3,13 +3,13 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<p class="navbar-text pull-left">
-     		<a href="../page/page-list.html" class="navbar-link">
+     		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
         		<span class="glyphicon glyphicon-chevron-left"></span>
       		</a>
     	</p>
-    	<a class="navbar-brand bold-brand" href="#">Widgets</a>
+    	<a class="navbar-brand bold-brand">Widgets</a>
     	<p class="navbar-text pull-right">
-    		<a href="widget-choose.html" class="navbar-link">
+    		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="navbar-link">
             	<span class="glyphicon glyphicon-plus"></span>
             </a>
         </p>
@@ -17,65 +17,68 @@
 </nav>
 
 <div class="container clear-nav clear-nav-bottom">
-    <div class="widget widget-heading">
-        <div class="widget-edit-buttons btn-group-sm">
-            <a href="widget-heading.html"><span class="glyphicon glyphicon-cog"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
+    <div ng-repeat="widget in model.widgets">
+        <div ng-switch="widget.widgetType">
+
+            <div ng-switch-when="HEADER">
+                <div class="widget widget-heading">
+                    <div class="widget-edit-buttons btn-group-sm">
+                        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
+                    </div>
+                    <!-- How do I change the size of the heading? -->
+                    <h2>{{widget.text}}</h2>
+                </div>
+            </div>
+
+            <div ng-switch-when="IMAGE">
+                <div class="widget widget-image">
+                    <div class="widget-edit-buttons btn-group-sm">
+                        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
+                    </div>
+                    <img class="responsive-image" src="{{widget.url}}">
+                    <p class="image-text">{{widget.text}}</p>
+                </div>
+            </div>
+
+            <div ng-switch-when="YOUTUBE">
+                <div class="widget widget-youtube">
+                    <div class="widget-edit-buttons btn-group-sm">
+                        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
+                    </div>
+                    <div class="responsive-video embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="{{model.trustSrc(widget.url)}}"></iframe>
+                    </div>
+                    <p class="youtube-text">{{widget.text}}</p>
+                </div>
+            </div>
+
         </div>
-        <h1>GIZMODO</h1>
-    </div>
-    <div class="widget widget-heading">
-        <div class="widget-edit-buttons btn-group-sm">
-            <a href="widget-heading.html"><span class="glyphicon glyphicon-cog"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
-        </div>
-        <h3>Netflix's gamble pays off as subscriptions soar</h3>
-    </div>
-    <div class="widget widget-image">
-        <div class="widget-edit-buttons btn-group-sm">
-            <a href="widget-image.html"><span class="glyphicon glyphicon-cog"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
-        </div>
-        <img id="netflix-img" class="responsive-image" src="/assets/images/netflix.jpg">
-        <p class="image-text">
-            Hundreds of movies disappeared from Netflix over 2016, the result of the streaming service’s decision to end several key content deals with top studios and distributors. It was a brave move - particularly given that its main rivals, such as Hulu, jumped at the chance to take on some of those titles Netflix decided it no longer wanted. The reason for the cull? Original content.
-        </p>
-    </div>
-    <div class="widget widget-heading">
-        <div class="widget-edit-buttons btn-group-sm">
-            <a href="widget-heading.html"><span class="glyphicon glyphicon-cog"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
-        </div>
-        <h3>Liquid Light – Cool Science Experiment</h3>
-    </div>
-    <div class="widget widget-youtube">
-        <div class="widget-edit-buttons btn-group-sm">
-            <a href="widget-youtube.html"><span class="glyphicon glyphicon-cog"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
-        </div>
-        <div class="responsive-video embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/v/PZfHn1YJVGk"></iframe>
-        </div>
-        <p class="youtube-text">
-            Just give the plastic light stick a little “snap” and a shake and the liquid inside begins to glow. Some people call it liquid light. Our experience tells us that with light comes heat… but not this time. Light sticks are more popular than ever and have become almost required apparel for Halloween to cast an eerie glow on the candy seekers. Light sticks are also a great and inexpensive teaching tool for students to learn how temperature affects the rate of the chemical reaction.
-        </p>
     </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
     	<div class="navbar-text nt-inline">
-    		<a href="#" class="navbar-link">
+    		<a class="navbar-link">
     			<span class="glyphicon glyphicon-play"></span>
     		</a>
     	</div>
     	<div class="navbar-text nt-inline">
-    		<a href="#" class="navbar-link">
+    		<a class="navbar-link">
     			<span class="glyphicon glyphicon-eye-open"></span>
     		</a>
     	</div>
         <div class="navbar-text nt-inline pull-right">
-            <a href="../user/profile.html" class="navbar-link blue-navbar-link">
+            <a href="#!/user/{{model.userId}}" class="navbar-link blue-navbar-link">
             	<span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
