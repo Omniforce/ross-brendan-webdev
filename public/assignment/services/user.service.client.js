@@ -23,9 +23,8 @@
 
         function createUser(user) {
             user._id = genNewId();
-            console.log(user);
-
             users.push(user);
+            
             return user;
         }
         function findUserById(userId) {

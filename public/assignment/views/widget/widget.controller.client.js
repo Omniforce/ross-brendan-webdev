@@ -29,9 +29,23 @@
         }
         init();
     }
-    function NewWidgetController() {
+    function NewWidgetController($routeParams, $location, WidgetService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
+        vm.websiteId = $routeParams["wid"];
+        vm.pageId = $routeParams["pid"];
+
+        vm.createWidget = createWidget;
+        function createWidget(widgetType) {
+            newWidget = WidgetService.createWidget(vm.pageId, widgetType);
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+        }
+
+        vm.widgetTypes = {
+            "header": "HEADER",
+            "image": "IMAGE",
+            "youtube": "YOUTUBE"
+        }
     }
     function EditWidgetController($routeParams, $location, WidgetService) {
     	var vm = this;
@@ -55,7 +69,6 @@
 
         function init() {
             vm.widget = WidgetService.findWidgetById(vm.widgetId);
-            console.log(vm.widget);
         }
         init();
     }

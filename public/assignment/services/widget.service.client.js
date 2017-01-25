@@ -23,10 +23,15 @@
 
         return api;
 
-        function createWidget(pageId, widget) {
-            widget._id = genNewId();
-            widget.pageId = pageId;
+        function createWidget(pageId, widgetType) {
+            widget = {
+                "_id": genNewId(),
+                "widgetType": widgetType,
+                "pageId": pageId
+            };
             widgets.push(widget);
+
+            return widget;
         }
         function findWidgetsByPageId(pageId) {
             return widgets.filter(function(widget) {
