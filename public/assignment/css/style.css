@@ -7,8 +7,16 @@ body {
     padding-top: 66px;
 }
 
+.container {
+	padding-bottom: 50px;
+}
+
 input.form-control {
     margin-bottom: 5px;
+}
+
+.extra-bottom {
+	margin-bottom: 10px;
 }
 
 .blue-navbar {
@@ -55,22 +63,40 @@ a:hover {
 	height: 100%;
 }
 
-.split-page-content {
-	height: 100%;
+/* DUEL-VIEW */
+.left-pane {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-top: 15px;
+    overflow: auto;
 }
 
-.split-page-content #main-content {
-	height: 100%;
-	margin-top: -16px;
-	padding-top: 16px;
+.right-pane {
+	margin-top: -15px;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow-y: auto;
 }
 
+/* RESPONSIVE */
 @media(min-width: 768px) {
 	.res-navbar-header {
 		width: 100%;
 	}
 
-	.split-page-content #main-content {
+	.right-pane {
+		position: absolute;
+	    top: 0px;
+	    right: 0px;
+	    bottom: 0px;
+	    margin-top: 50px;
+	}
+
+	.grey-border-left {
 		border-left: 1px solid #D3D3D3;
 	}
 }
