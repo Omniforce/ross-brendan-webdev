@@ -30,7 +30,7 @@
 </nav>
 
 <div class="split-page-content container-fluid">
-    <div class="col-sm-4 hidden-xs clear-nav">
+    <div class="col-sm-4 hidden-xs">
         <ul class="list-group borderless-list-group">
             <li ng-repeat="website in model.websites" class="list-group-item">
                 <a href="#!/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a>
@@ -41,20 +41,18 @@
         </ul>
     </div>
     <div id="main-content" class="col-sm-8">
-        <div class="clear-nav">
-            <form>
-                <div class="form-group">
-                    <label for="name">Website Name</label>
-                    <input ng-model="model.website.name" class="form-control" id="name" type="text" placeholder="Name">
-                </div>
-                <div class="form-group">
-                    <label for="description">Website Description</label>
-                    <textarea ng-model="model.website.description" class="form-control" rows="5" id="description" placeholder="Description"></textarea>
-                </div>
-            </form>
+        <form>
+            <div class="form-group">
+                <label for="name">Website Name</label>
+                <input ng-model="model.website.name" class="form-control" id="name" type="text" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="description">Website Description</label>
+                <textarea ng-model="model.website.description" class="form-control" rows="5" id="description" placeholder="Description"></textarea>
+            </div>
+        </form>
 
-            <a ng-click="model.deleteWebsite()" class="btn btn-danger btn-block">Delete</a>
-        </div>
+        <a ng-click="model.deleteWebsite()" class="btn btn-danger btn-block">Delete</a>
     </div>
 </div>
 
