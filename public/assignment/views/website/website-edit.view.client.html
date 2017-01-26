@@ -1,8 +1,6 @@
-<link href="css/websites.css" rel="stylesheet"/>
-
 <nav class="navbar navbar-default navbar-fixed-top blue-navbar">
-    <div class="container-fluid">
-        <div class="navbar-header sidebar-nav display-only-desktop">
+    <div class="row container-fluid">
+        <div class="col-sm-4 hidden-xs">
             <p class="navbar-text pull-left">
                 <a href="#!/user/{{model.userId}}/website" class="navbar-link white-navbar-link">
                     <span class="glyphicon glyphicon-chevron-left"></span>
@@ -15,13 +13,13 @@
                 </a>
             </p>
         </div>
-        <div class="container-fluid main-content-nav">
-            <p class="navbar-text pull-left display-only-mobile">
+        <div class="col-sm-8">
+            <p class="navbar-text pull-left visible-xs-block">
                 <a href="#!/user/{{model.userId}}/website" class="navbar-link white-navbar-link">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </p>
-            <a class="navbar-brand bold-brand white-navbar-brand" href="#">Edit Website</a>
+            <a class="navbar-brand bold-brand white-navbar-brand">Edit Website</a>
             <p class="navbar-text pull-right">
                 <a ng-click="model.updateWebsite(model.website)" class="navbar-link white-navbar-link">
                     <span class="glyphicon glyphicon-ok"></span>
@@ -31,8 +29,8 @@
     </div>
 </nav>
 
-<div class="max-height">
-    <div class="display-only-desktop sidebar clear-nav-website" id="sidebar-content">
+<div class="split-page-content container-fluid">
+    <div class="col-sm-4 hidden-xs clear-nav">
         <ul class="list-group borderless-list-group">
             <li ng-repeat="website in model.websites" class="list-group-item">
                 <a href="#!/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a>
@@ -42,8 +40,8 @@
             </li>
         </ul>
     </div>
-    <div class="max-height clear-nav-website" id="main-content">
-        <div id="content">
+    <div id="main-content" class="col-sm-8">
+        <div class="clear-nav">
             <form>
                 <div class="form-group">
                     <label for="name">Website Name</label>

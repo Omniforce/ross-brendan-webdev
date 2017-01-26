@@ -25,6 +25,11 @@
             PageService.createPage(vm.websiteId, page);
             $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
         }
+
+        function init() {
+            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+        }
+        init();
     }
     function EditPageController($routeParams, $location, PageService) {
         var vm = this;
@@ -46,6 +51,7 @@
 
         function init() {
             vm.page = PageService.findPageById(vm.pageId);
+            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
         }
         init();
     }
