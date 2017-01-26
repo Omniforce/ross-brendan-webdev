@@ -4,7 +4,7 @@ html {
 
 body {
 	height: 100%;
-    padding-top: 50px;
+    padding-top: 66px;
 }
 
 input.form-control {
@@ -39,10 +39,6 @@ input.form-control {
 	margin: 15px;
 }
 
-.clear-nav {
-	margin-top: 16px;
-}
-
 #uploadButton {
 	margin-bottom: 5px;
 }
@@ -65,6 +61,8 @@ a:hover {
 
 .split-page-content #main-content {
 	height: 100%;
+	margin-top: -16px;
+	padding-top: 16px;
 }
 
 @media(min-width: 768px) {
