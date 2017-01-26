@@ -1,9 +1,14 @@
-input.form-control {
-    margin-bottom: 5px;
+html {
+	height: 100%;
 }
 
 body {
-    padding-top: 36px;
+	height: 100%;
+    padding-top: 50px;
+}
+
+input.form-control {
+    margin-bottom: 5px;
 }
 
 .blue-navbar {
@@ -35,13 +40,7 @@ body {
 }
 
 .clear-nav {
-	margin-top: 33px;
-}
-
-@media(min-width: 768px) {
-	.res-navbar-header {
-		width: 100%;
-	}
+	margin-top: 16px;
 }
 
 #uploadButton {
@@ -54,4 +53,26 @@ body {
 
 a:hover {
 	text-decoration: none;
+}
+
+#view-div {
+	height: 100%;
+}
+
+.split-page-content {
+	height: 100%;
+}
+
+.split-page-content #main-content {
+	height: 100%;
+}
+
+@media(min-width: 768px) {
+	.res-navbar-header {
+		width: 100%;
+	}
+
+	.split-page-content #main-content {
+		border-left: 1px solid #D3D3D3;
+	}
 }

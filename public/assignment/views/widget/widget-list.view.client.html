@@ -1,0 +1,86 @@
+<link href="css/widget-list.css" rel="stylesheet"/>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<p class="navbar-text pull-left">
+     		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
+        		<span class="glyphicon glyphicon-chevron-left"></span>
+      		</a>
+    	</p>
+    	<a class="navbar-brand bold-brand">Widgets</a>
+    	<p class="navbar-text pull-right">
+    		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="navbar-link">
+            	<span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </p>
+	</div>
+</nav>
+
+<div class="container clear-nav clear-nav-bottom">
+    <div ng-repeat="widget in model.widgets">
+        <div ng-switch="widget.widgetType">
+
+            <div ng-switch-when="HEADER">
+                <div class="widget widget-heading">
+                    <div class="widget-edit-buttons btn-group-sm">
+                        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
+                    </div>
+                    <!-- How do I change the size of the heading? -->
+                    <p class="h{{widget.size}}">{{widget.text}}</p>
+                </div>
+            </div>
+
+            <div ng-switch-when="IMAGE">
+                <div class="widget widget-image">
+                    <div class="widget-edit-buttons btn-group-sm">
+                        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
+                    </div>
+                    <img class="responsive-image" src="{{widget.url}}">
+                    <p class="image-text">{{widget.text}}</p>
+                </div>
+            </div>
+
+            <div ng-switch-when="YOUTUBE">
+                <div class="widget widget-youtube">
+                    <div class="widget-edit-buttons btn-group-sm">
+                        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a><span class="glyphicon glyphicon-align-justify black-icon"></span></a>
+                    </div>
+                    <div class="responsive-video embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="{{model.trustSrc(widget.url)}}"></iframe>
+                    </div>
+                    <p class="youtube-text">{{widget.text}}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+    	<div class="navbar-text nt-inline">
+    		<a class="navbar-link">
+    			<span class="glyphicon glyphicon-play"></span>
+    		</a>
+    	</div>
+    	<div class="navbar-text nt-inline">
+    		<a class="navbar-link">
+    			<span class="glyphicon glyphicon-eye-open"></span>
+    		</a>
+    	</div>
+        <div class="navbar-text nt-inline pull-right">
+            <a href="#!/user/{{model.userId}}" class="navbar-link blue-navbar-link">
+            	<span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+</nav>
