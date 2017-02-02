@@ -10,21 +10,46 @@
         vm.login = login;
 
         function login(user) {
-            user = UserService.findUserByCredentials(user.username, user.password);
-            if(user) {
-                $location.url("/user/" + user._id);
+            verifyLoginInfo(user, function(user) {
+                user = UserService.findUserByCredentials(user.username, user.password);
+                if(user) {
+                    $location.url("/user/" + user._id);
+                } else {
+                    vm.alertMessage = "Unable to find that username/password combination";
+                }
+            });
+        }
+
+        function verifyLoginInfo(user, cb) {
+            if (user && user.username && user.password) {
+                cb(user)
             } else {
-                vm.alert = "Unable to login";
+                vm.alertMessage = "You must supply a username and password"
             }
         }
     }
+
     function RegisterController($location, UserService) {
     	var vm = this;
         vm.register = register;
 
         function register(user) {
-            var newUser = UserService.createUser(user);
-            $location.url("/user/" + newUser._id)
+            verifyRegistrationInfo(user, function(user) {
+                var newUser = UserService.createUser(user);
+                $location.url("/user/" + newUser._id)
+            });
+        }
+
+        function verifyRegistrationInfo(user, cb) {
+            if (user && user.username && user.password && user.verypassword) {
+                if (user.password == user.verypassword) {
+                    cb(user);
+                } else {
+                    vm.alertMessage = "Passwords do not match!"
+                }
+            } else {
+                vm.alertMessage = "All fields are required!"
+            }
         }
     }
     function ProfileController($routeParams, UserService) {
