@@ -3,18 +3,13 @@
         .module("WebAppMaker")
         .factory("UserService", UserService);
     
-    function UserService() {
-        var users = [
-            {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
-            {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
-            {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
-        ]
+    function UserService($http) {
+
         var api = {
             "createUser"            : createUser,
-            "findUserById"          : findUserById,
             "findUserByUsername"    : findUserByUsername,
             "findUserByCredentials" : findUserByCredentials,
+            "findUserById"          : findUserById,
             "updateUser"            : updateUser,
             "deleteUser"            : deleteUser
         };
@@ -22,56 +17,22 @@
         return api;
 
         function createUser(user) {
-            user._id = genNewId();
-            users.push(user);
-            
-            return user;
-        }
-        function findUserById(userId) {
-            return users.find(function(user) {
-                return userId == user._id;
-            });
+            return $http.post('/api/user', user);
         }
         function findUserByUsername(username) {
-            return users.find(function(user) {
-                return username == user.username;
-            });
+            return $http.get('/api/user?username=' + username);
         }
         function findUserByCredentials(username, password) {
-            return users.find(function(user) {
-                return username == user.username && password == user.password;
-            });
+            return $http.get('/api/user?username=' + username + '&password=' + password);
+        }
+        function findUserById(userId) {
+            return $http.get('/api/user/' + userId);
         }
         function updateUser(userId, user) {
-            var userIndex = getIndexOfUser(userId);
-
-            if (userIndex > -1) {
-                users[userIndex] = user;
-            }
+            return $http.put('/api/user/' + userId, user);
         }
         function deleteUser(userId) {
-            var userIndex = getIndexOfUser(userId);
-
-            if (userIndex > -1) {
-                users.splice(userIndex, 1);
-            }
-        }
-
-        function getIndexOfUser(userId) {
-            return users.findIndex(function(u) {
-                return userId == u._id;
-            });
-        }
-
-        function genNewId() {
-            var newId = 1;
-            while(true) {
-                indexOfId = getIndexOfUser(newId);
-                if (indexOfId < 0) {
-                    return newId;
-                }
-                newId += 1;
-            }
+            return $http.delete('/api/user/' + userId);
         }
     }
 })();

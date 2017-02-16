@@ -11,7 +11,10 @@
         vm.websiteId = $routeParams["wid"];
 
         function init() {
-            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+            PageService.findPagesByWebsiteId(vm.websiteId)
+                .then(function(response) {
+                    vm.pages = response.data;
+                }, error);
         }
         init();
     }
@@ -22,12 +25,17 @@
 
         vm.createPage = createPage;
         function createPage(page) {
-            PageService.createPage(vm.websiteId, page);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            PageService.createPage(vm.websiteId, page)
+                .then(function(data) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                }, error);
         }
 
         function init() {
-            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+            PageService.findPagesByWebsiteId(vm.websiteId)
+                .then(function(response) {
+                    vm.pages = response.data;
+                }, error);
         }
         init();
     }
@@ -41,19 +49,34 @@
         vm.deletePage = deletePage;
 
         function updatePage(page) {
-            PageService.updatePage(vm.pageId, page);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            PageService.updatePage(vm.pageId, page)
+                .then(function(response) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                }, error);
         }
         function deletePage() {
-            PageService.deletePage(vm.pageId);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            PageService.deletePage(vm.pageId)
+                .then(function(response) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                }, error);
         }
 
         function init() {
-            vm.page = PageService.findPageById(vm.pageId);
-            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+            PageService.findPagesByWebsiteId(vm.websiteId)
+                .then(function(response) {
+                    vm.pages = response.data;
+                }, error);
+
+            PageService.findPageById(vm.pageId)
+                .then(function(response) {
+                    vm.page = response.data;
+                }, error);
         }
         init();
+    }
+
+    function error(response) {
+        console.log(response);
     }
 
 })();

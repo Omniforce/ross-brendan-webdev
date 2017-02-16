@@ -13,7 +13,7 @@
             WebsiteService.findWebsitesByUser(vm.userId)
                 .then(function(response) {
                     vm.websites = response.data;
-                });
+                }, error);
         }
         init();
     }
@@ -25,15 +25,15 @@
         function createWebsite(website) {
             WebsiteService.createWebsite(vm.userId, website)
                 .then(function(response) {
-                    $location.url("/user/" + response.data.developerId + "/website");
-                });
+                    $location.url("/user/" + vm.userId + "/website");
+                }, error);
         }
 
         function init() {
             WebsiteService.findWebsitesByUser(vm.userId)
                 .then(function(response) {
                     vm.websites = response.data;
-                });
+                }, error);
         }
         init();
     }
@@ -48,29 +48,33 @@
         function updateWebsite(website) {
             WebsiteService.updateWebsite(vm.websiteId, website)
                 .then(function(response) {
-                    $location.url("/user/" + response.data.developerId + "/website");
-                });
+                    $location.url("/user/" + vm.userId + "/website");
+                }, error);
         }
 
         function deleteWebsite() {
             WebsiteService.deleteWebsite(vm.websiteId)
                 .then(function(response) {
                     $location.url("/user/" + vm.userId + "/website");
-                });
+                }, error);
         }
 
         function init() {
             WebsiteService.findWebsitesByUser(vm.userId)
                 .then(function(response) {
                     vm.websites = response.data;
-                });
+                }, error);
 
             WebsiteService.findWebsiteById(vm.websiteId)
                 .then(function(response) {
                     vm.website = response.data
-                });
+                }, error);
         }
         init();
+    }
+
+    function error(response) {
+        console.log(response);
     }
 
 })();
