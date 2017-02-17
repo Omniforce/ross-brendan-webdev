@@ -8,7 +8,7 @@
 		var initialIndex;
 		var pageId;
 
-		function link(scope, element, attr) {
+		function link(scope, element, attrs) {
 			$(element).sortable({
 				handle: ".drag",
 				start: onStart,

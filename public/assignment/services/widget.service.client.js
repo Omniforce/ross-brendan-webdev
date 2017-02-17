@@ -11,7 +11,8 @@
             "findWidgetById"     : findWidgetById,
             "updateWidget"       : updateWidget,
             "deleteWidget"       : deleteWidget,
-            "updateWidgetOrder"  : updateWidgetOrder
+            "updateWidgetOrder"  : updateWidgetOrder,
+            "uploadFile"         : uploadFile
         };
 
         return api;
@@ -33,6 +34,18 @@
         }
         function updateWidgetOrder(pageId, initial, final) {
             return $http.put('/api/page/' + pageId + '/widget?initial=' + initial + '&final=' + final);
+        }
+        function uploadFile(myFile, widgetId, width) {
+            fd = new FormData();
+            fd.append('myFile', myFile);
+            fd.append('widgetId', widgetId);
+            fd.append('width', width);
+
+            return $http.post('/api/upload', fd,
+            {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            });
         }
     }
 })();

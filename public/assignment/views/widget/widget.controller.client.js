@@ -59,6 +59,7 @@
 
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
+        vm.uploadFile = uploadFile;
 
         function updateWidget(widget) {
             WidgetService.updateWidget(vm.widgetId, widget)
@@ -72,6 +73,17 @@
                 .then(function(response) {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
                 }, error);
+        }
+
+        function uploadFile() {
+            var file = $('#myFileInput').prop("files")[0];
+
+            if (file) {
+                WidgetService.uploadFile(file, vm.widget._id, vm.widget.width)
+                    .then(function(response) {
+                        vm.widget = response.data;
+                    }, error);
+            }
         }
 
         function init() {
