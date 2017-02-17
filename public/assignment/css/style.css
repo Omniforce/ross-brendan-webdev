@@ -102,6 +102,11 @@ a:hover {
 }
 
 /* WIDGET-LIST */
+.widget-list {
+	list-style: none;
+	padding: 0;
+}
+
 .widget {
 	position: relative;
 }
