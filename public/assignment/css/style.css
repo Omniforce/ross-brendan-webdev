@@ -15,6 +15,10 @@ input.form-control {
     margin-bottom: 5px;
 }
 
+.notifications .notifications-container {
+	z-index: 1500;
+}
+
 .extra-bottom {
 	margin-bottom: 10px;
 }

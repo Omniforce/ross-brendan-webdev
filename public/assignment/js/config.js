@@ -4,7 +4,7 @@
     	.config(Config);
 })();
  
-function Config($routeProvider) {
+function Config($routeProvider, notificationsConfigProvider) {
 	$routeProvider
 		.when("/", {
 			templateUrl: "./views/user/login.view.client.html",
@@ -76,4 +76,7 @@ function Config($routeProvider) {
 			controller: "LoginController",
 			controllerAs: "model"
 		});
+
+	notificationsConfigProvider.setAutoHide(true);
+    notificationsConfigProvider.setHideDelay(3000);
 }

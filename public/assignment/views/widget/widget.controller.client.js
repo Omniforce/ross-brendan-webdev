@@ -50,7 +50,7 @@
                 }, error);
         }
     }
-    function EditWidgetController($routeParams, $location, WidgetService) {
+    function EditWidgetController($routeParams, $location, WidgetService, notifications) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -82,6 +82,7 @@
                 WidgetService.uploadFile(file, vm.widget._id, vm.widget.width)
                     .then(function(response) {
                         vm.widget = response.data;
+                        notifications.showSuccess({message: "Image Uploaded"});
                     }, error);
             }
         }

@@ -5,7 +5,7 @@
         .controller("RegisterController", RegisterController)
         .controller("ProfileController", ProfileController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, UserService, notifications) {
         var vm = this;
         vm.login = login;
 
@@ -17,7 +17,9 @@
                         if (loggedInUser) {
                             $location.url("/user/" + loggedInUser._id);
                         }
-                    }, error);
+                    }, function(error) {
+                        notifications.showError({message: error.data});
+                    });
             }
         }
     }
@@ -35,12 +37,14 @@
                         if (newUser) {
                             $location.url("/user/" + newUser._id);
                         }
-                    }, error);
+                    }, function(error) {
+                        notifications.showError({message: error.data});
+                    });
             }
         }
     }
 
-    function ProfileController($routeParams, $location, UserService) {
+    function ProfileController($routeParams, $location, UserService, notifications) {
 		var vm = this;
 		vm.userId = $routeParams["uid"];
 
@@ -51,22 +55,22 @@
                     updatedUser = response.data;
 
                     if (updatedUser) {
-                        $location.url("/user/" + updatedUser._id);
+                        notifications.showSuccess({ message: "User information updated" });
                     }
-                }, error);
+                }, function(error) {
+                    notifications.showError({message: error.data});
+                });
         }
 
         function init() {
             UserService.findUserById(vm.userId)
                 .then(function(response) {
                     vm.user = response.data;
-                }, error);
+                }, function(error) {
+                    notifications.showError({message: error.data});
+                });
         }
         init();
 	}
-
-    function error(response) {
-        console.log(response);
-    }
 
 })();

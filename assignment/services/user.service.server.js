@@ -48,7 +48,8 @@ module.exports = function(app) {
 			return username == user.username && password == user.password;
 		});
 		
-		res.send(user)
+		if (user) { res.send(user); }
+		else { res.status(400).send("User/Password combination not found"); }
 	}
 
 	function findUserById(req, res) {
@@ -58,7 +59,8 @@ module.exports = function(app) {
 			return userId == user._id;
 		});
 
-		res.send(user);
+		if (user) { res.send(user); }
+		else { res.status(400).send("User not found"); }
 	}
 
 	function updateUser(req, res) {
