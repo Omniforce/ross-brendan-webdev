@@ -3,15 +3,8 @@
         .module("WebAppMaker")
         .factory("WebsiteService", WebsiteService);
     
-    function WebsiteService() {
-        var websites = [
-            { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
-            { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
-            { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Lorem" },
-            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-            { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Lorem" },
-            { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
-        ]
+    function WebsiteService($http) {
+
         var api = {
             "createWebsite"      : createWebsite,
             "findWebsitesByUser" : findWebsitesByUser,
@@ -22,53 +15,20 @@
 
         return api;
 
-        // THIS PROBABLY NEEDS TO BE UPDATED
         function createWebsite(userId, website) {
-            website._id = genNewId();
-            website.developerId = userId;
-            websites.push(website);
+            return $http.post('/api/user/' + userId + "/website", website);
         }
         function findWebsitesByUser(userId) {
-            return websites.filter(function(website) {
-                return userId == website.developerId;
-            });
+            return $http.get("/api/user/" + userId + "/website");
         }
         function findWebsiteById(websiteId) {
-            return websites.find(function(website) {
-                return websiteId == website._id;
-            });
+            return $http.get("/api/website/" + websiteId);
         }
         function updateWebsite(websiteId, website) {
-            var websiteIndex = getIndexOfWebsite(websiteId);
-
-            if (websiteIndex > -1) {
-                websites[websiteIndex] = website;
-            }
+            return $http.put("/api/website/" + websiteId, website);
         }
         function deleteWebsite(websiteId) {
-            var websiteIndex = getIndexOfWebsite(websiteId);
-
-            if (websiteIndex > -1) {
-                websites.splice(websiteIndex, 1);
-            }
-        }
-
-        function getIndexOfWebsite(websiteId) {
-            return websites.findIndex(function(website) {
-                return websiteId == website._id;
-            });
-        }
-
-
-        function genNewId() {
-            var newId = 1;
-            while(true) {
-                indexOfId = getIndexOfWebsite(newId);
-                if (indexOfId < 0) {
-                    return newId;
-                }
-                newId += 1;
-            }
+            return $http.delete("/api/website/" + websiteId);         
         }
     }
 })();

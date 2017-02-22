@@ -5,26 +5,21 @@
         .controller("RegisterController", RegisterController)
         .controller("ProfileController", ProfileController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, UserService, notifications) {
         var vm = this;
         vm.login = login;
 
         function login(user) {
-            verifyLoginInfo(user, function(user) {
-                user = UserService.findUserByCredentials(user.username, user.password);
-                if(user) {
-                    $location.url("/user/" + user._id);
-                } else {
-                    vm.alertMessage = "Unable to find that username/password combination";
-                }
-            });
-        }
-
-        function verifyLoginInfo(user, cb) {
-            if (user && user.username && user.password) {
-                cb(user)
-            } else {
-                vm.alertMessage = "You must supply a username and password"
+            if (user) {
+                UserService.findUserByCredentials(user.username, user.password)
+                    .then(function(response) {
+                        var loggedInUser = response.data;
+                        if (loggedInUser) {
+                            $location.url("/user/" + loggedInUser._id);
+                        }
+                    }, function(error) {
+                        notifications.showError({message: error.data});
+                    });
             }
         }
     }
@@ -34,35 +29,46 @@
         vm.register = register;
 
         function register(user) {
-            verifyRegistrationInfo(user, function(user) {
-                var newUser = UserService.createUser(user);
-                $location.url("/user/" + newUser._id)
-            });
-        }
+            if (user && user.password == user.verypassword) {
+                UserService.createUser(user)
+                    .then(function(response) {
+                        newUser = response.data;
 
-        function verifyRegistrationInfo(user, cb) {
-            if (user && user.username && user.password && user.verypassword) {
-                if (user.password == user.verypassword) {
-                    cb(user);
-                } else {
-                    vm.alertMessage = "Passwords do not match!"
-                }
-            } else {
-                vm.alertMessage = "All fields are required!"
+                        if (newUser) {
+                            $location.url("/user/" + newUser._id);
+                        }
+                    }, function(error) {
+                        notifications.showError({message: error.data});
+                    });
             }
         }
     }
-    function ProfileController($routeParams, UserService) {
+
+    function ProfileController($routeParams, $location, UserService, notifications) {
 		var vm = this;
 		vm.userId = $routeParams["uid"];
 
         vm.updateUser = updateUser;
         function updateUser(user) {
-            UserService.updateUser(vm.userId, user);
+            UserService.updateUser(vm.userId, user)
+                .then(function(response) {
+                    updatedUser = response.data;
+
+                    if (updatedUser) {
+                        notifications.showSuccess({ message: "User information updated" });
+                    }
+                }, function(error) {
+                    notifications.showError({message: error.data});
+                });
         }
 
         function init() {
-            vm.user = UserService.findUserById(vm.userId);
+            UserService.findUserById(vm.userId)
+                .then(function(response) {
+                    vm.user = response.data;
+                }, function(error) {
+                    notifications.showError({message: error.data});
+                });
         }
         init();
 	}
