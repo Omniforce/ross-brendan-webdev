@@ -13,9 +13,11 @@ module.exports = function() {
 		deleteUser: deleteUser
 	};
 
+	return api;
+
 	function createUser(user) {
-		var user = new User(user);
-		return user.save();
+		var newUser = new User(user);
+		return newUser.save();
 	}
 
 	function findUserById(userId) {
@@ -40,6 +42,4 @@ module.exports = function() {
 	function deleteUser(userId) {
 		return User.findByIdAndRemove(userId);
 	}
-
-	return api;
 }
