@@ -69,8 +69,8 @@ module.exports = function(app, model) {
 		var user = req.body;
 
 		User.updateUser(userId, user)
-			.then(function(user) {
-				if (user) { res.send(user); }
+			.then(function(updatedUser) {
+				if (updatedUser) { res.send(updatedUser); }
 				else { res.status(400).send("Unable to update user"); }
 			}, function(err) {
 				handleError(err, res);

@@ -38,7 +38,8 @@
         vm.widgetTypes = {
             "header": "HEADER",
             "image": "IMAGE",
-            "youtube": "YOUTUBE"
+            "youtube": "YOUTUBE",
+            "html": "HTML"
         }
 
         vm.createWidget = createWidget;
@@ -81,7 +82,8 @@
             if (file) {
                 WidgetService.uploadFile(file, vm.widget._id, vm.widget.width)
                     .then(function(response) {
-                        vm.widget = response.data;
+                        vm.widget.width = response.data.width;
+                        vm.widget.url = response.data.url;
                         notifications.showSuccess({message: "Image Uploaded"});
                     }, error);
             }

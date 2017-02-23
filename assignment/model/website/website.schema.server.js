@@ -6,8 +6,7 @@ module.exports = function() {
 		_user:       { type: Schema.Types.ObjectId, ref: 'User' },
 		name:        String,
 		description: String,
-		pages:       [{ type: Schema.Types.ObjectId, ref: 'Page' }],
-		dateCreated: Date
+		pages:       [{ type: Schema.Types.ObjectId, ref: 'Page' }]
 	}, {
 		timestamps: { createdAt: 'dateCreated', updatedAt: 'dateUpdated' }
 	});

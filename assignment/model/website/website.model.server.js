@@ -30,7 +30,7 @@ module.exports = function() {
 	}
 
 	function updateWebsite(websiteId, website) {
-		return Website.findByIdAndUpdate(websiteId, website);
+		return Website.findByIdAndUpdate(websiteId, website, { new: true });
 	}
 
 	function deleteWebsite(websiteId) {

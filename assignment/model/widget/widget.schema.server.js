@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 module.exports = function() {
 	var widgetSchema = new Schema({
-		_page: { type: Schema.Types.ObjectId, ref: 'Page' },
-		type: { type: String, enum: ['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT'] },
+		_page:       { type: Schema.Types.ObjectId, ref: 'Page' },
+		widgetType:  { type: String, enum: ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT'] },
 		name:        String,
 		text:        String,
 		placeholder: String,
@@ -17,8 +17,7 @@ module.exports = function() {
 		class:       String,
 		icon:        String,
 		deletable:   Boolean,
-		formatted:   Boolean,
-		dateCreated: Date
+		formatted:   Boolean
 	}, {
 		timestamps: { createdAt: 'dateCreated', updatedAt: 'dateUpdated' }
 	});

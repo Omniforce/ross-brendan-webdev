@@ -30,7 +30,7 @@ module.exports = function() {
 	}
 
 	function updatePage(pageId, page) {
-		return Page.findByIdAndUpdate(pageId, page);
+		return Page.findByIdAndUpdate(pageId, page, { new: true });
 	}
 
 	function deletePage(pageId) {
