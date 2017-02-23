@@ -39,7 +39,8 @@
             "header": "HEADER",
             "image": "IMAGE",
             "youtube": "YOUTUBE",
-            "html": "HTML"
+            "html": "HTML",
+            "text": "TEXT"
         }
 
         vm.createWidget = createWidget;

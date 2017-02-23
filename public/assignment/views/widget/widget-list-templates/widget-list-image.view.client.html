@@ -1,0 +1,10 @@
+<div class="widget widget-image">
+    <div class="widget-edit-buttons btn-group-sm">
+        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+            <span class="glyphicon glyphicon-cog"></span>
+        </a>
+        <span class="drag glyphicon glyphicon-align-justify black-icon"></span>
+    </div>
+    <img class="responsive-image" ng-src="{{widget.url}}">
+    <p class="image-text">{{widget.text}}</p>
+</div>
