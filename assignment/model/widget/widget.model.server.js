@@ -9,6 +9,7 @@ module.exports = function() {
 		findAllWidgetsForPage: findAllWidgetsForPage,
 		findWidgetById: findWidgetById,
 		updateWidget: updateWidget,
+		updateWidgetImage: updateWidgetImage,
 		deleteWidget: deleteWidget,
 		reorderWidget: reorderWidget
 	};
@@ -32,6 +33,17 @@ module.exports = function() {
 
 	function updateWidget(widgetId, widget) {
 		return Widget.findByIdAndUpdate(widgetId, widget, { new: true });
+	}
+
+	function updateWidgetImage(widgetId, filename, width) {
+		var changes = { 
+    		$set: { 
+    			width: width,
+    			url: "../../uploads/" + filename
+    		}
+    	};
+
+    	return updateWidget(widgetId, changes);
 	}
 
 	function deleteWidget(widgetId) {

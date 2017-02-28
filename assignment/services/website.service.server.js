@@ -1,5 +1,6 @@
 module.exports = function(app, model) {
 
+	var User = model.userModel;
 	var Website = model.websiteModel;
 
 	app.post('/api/user/:userId/website', createWebsite);
@@ -14,7 +15,10 @@ module.exports = function(app, model) {
 
 		Website.createWebsiteForUser(userId, website)
 			.then(function(newWebsite) {
-				res.send(newWebsite);
+				User.addWebsite(newWebsite._user, newWebsite.id)
+					.then(function(user) {
+						res.send(newWebsite);
+					});
 			}, function(err) {
 				res.status(500).send("Unable to create new website");
 			});
@@ -36,8 +40,9 @@ module.exports = function(app, model) {
 
 		Website.findWebsiteById(websiteId)
 			.then(function(website) {
-				if (website) { res.send(website); }
-				else { res.status(500).send("Unable to find website"); }
+				if (!website) { res.status(500).send("Unable to find website"); }
+
+				res.send(website);
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -49,8 +54,9 @@ module.exports = function(app, model) {
 
 		Website.updateWebsite(websiteId, website)
 			.then(function(updatedWebsite) {
-				if (updatedWebsite) { res.send(updatedWebsite); }
-				else { res.status(500).send("Unable to update website"); }
+				if (!updatedWebsite) { res.status(500).send("Unable to update website"); }
+
+				res.send(updatedWebsite);
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -61,8 +67,12 @@ module.exports = function(app, model) {
 
 		Website.deleteWebsite(websiteId)
 			.then(function(deletedWebsite) {
-				if (deletedWebsite) { res.send(deletedWebsite); }
-				else { res.status(500).send("Unable to delete website"); }
+				if (!deletedWebsite) { res.status(500).send("Unable to delete website"); }
+
+				User.deleteWebsite(deletedWebsite._user, deletedWebsite._id)
+					.then(function(user) {
+						res.send(deletedWebsite);
+					});
 			}, function(err) {
 				handleError(err, res);
 			});

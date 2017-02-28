@@ -10,7 +10,9 @@ module.exports = function() {
 		findUserByUsername: findUserByUsername,
 		findUserByCredentials: findUserByCredentials,
 		updateUser: updateUser,
-		deleteUser: deleteUser
+		deleteUser: deleteUser,
+		addWebsite: addWebsite,
+		deleteWebsite: deleteWebsite
 	};
 
 	return api;
@@ -41,5 +43,15 @@ module.exports = function() {
 
 	function deleteUser(userId) {
 		return User.findByIdAndRemove(userId);
+	}
+
+	function addWebsite(userId, websiteId) {
+		var change = { $push: { websites: websiteId } }
+		return User.findByIdAndUpdate(userId, change, { new: true });
+	}
+
+	function deleteWebsite(userId, websiteId) {
+		var change = { $pull: { websites: websiteId } }
+		return User.findByIdAndUpdate(userId, change, { new: true });
 	}
 }

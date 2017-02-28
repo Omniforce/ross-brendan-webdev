@@ -9,7 +9,9 @@ module.exports = function() {
 		findAllWebsitesForUser: findAllWebsitesForUser,
 		findWebsiteById: findWebsiteById,
 		updateWebsite: updateWebsite,
-		deleteWebsite: deleteWebsite
+		deleteWebsite: deleteWebsite,
+		addPage: addPage,
+		deletePage: deletePage
 	};
 
 	return api;
@@ -35,5 +37,15 @@ module.exports = function() {
 
 	function deleteWebsite(websiteId) {
 		return Website.findByIdAndRemove(websiteId);
+	}
+
+	function addPage(websiteId, pageId) {
+		var change = { $push: { pages: pageId } }
+		return Website.findByIdAndUpdate(websiteId, change, { new: true });
+	}
+
+	function deletePage(websiteId, pageId) {
+		var change = { $pull: { pages: pageId } }
+		return Website.findByIdAndUpdate(websiteId, change, { new: true });
 	}
 }
