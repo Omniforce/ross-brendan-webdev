@@ -16,7 +16,7 @@ module.exports = function(app, model) {
 			.then(function(newWebsite) {
 				res.send(newWebsite);
 			}, function(err) {
-				res.status(400).send("Unable to create new website");
+				res.status(500).send("Unable to create new website");
 			});
 	}
 
@@ -37,7 +37,7 @@ module.exports = function(app, model) {
 		Website.findWebsiteById(websiteId)
 			.then(function(website) {
 				if (website) { res.send(website); }
-				else { res.status(400).send("Unable to find website"); }
+				else { res.status(500).send("Unable to find website"); }
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -50,7 +50,7 @@ module.exports = function(app, model) {
 		Website.updateWebsite(websiteId, website)
 			.then(function(updatedWebsite) {
 				if (updatedWebsite) { res.send(updatedWebsite); }
-				else { res.status(400).send("Unable to update website"); }
+				else { res.status(500).send("Unable to update website"); }
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -62,7 +62,7 @@ module.exports = function(app, model) {
 		Website.deleteWebsite(websiteId)
 			.then(function(deletedWebsite) {
 				if (deletedWebsite) { res.send(deletedWebsite); }
-				else { res.status(400).send("Unable to delete website"); }
+				else { res.status(500).send("Unable to delete website"); }
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -70,6 +70,6 @@ module.exports = function(app, model) {
 
 	function handleError(err, res) {
 		console.log(err);
-		res.status(400).send("Something seems to have gone wrong...");
+		res.status(500).send("Something seems to have gone wrong...");
 	}
 }

@@ -23,7 +23,7 @@ module.exports = function(app, model) {
 			.then(function(user) {
 				res.send(user);
 			}, function(err) {
-				res.status(400).send("Unable to create new user");
+				res.status(500).send("Unable to create new user");
 			});
 	}
 
@@ -33,7 +33,7 @@ module.exports = function(app, model) {
 		User.findUserByUsername(username)
 			.then(function(user) {
 				if (user) { res.send(user); }
-				else { res.status(400).send("Unable to find user with this username"); }
+				else { res.status(500).send("Unable to find user with this username"); }
 			}, function(err) {
 				handleError(err, res)
 			});
@@ -46,7 +46,7 @@ module.exports = function(app, model) {
 		User.findUserByCredentials(username, password)
 			.then(function(user) {
 				if (user) { res.send(user); }
-				else { res.status(400).send("Unable to find username/password combination"); }
+				else { res.status(500).send("Unable to find username/password combination"); }
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -58,7 +58,7 @@ module.exports = function(app, model) {
 		User.findUserById(userId)
 			.then(function(user) {		
 				if (user) { res.send(user); }
-				else { res.status(400).send("Unable to find user"); }
+				else { res.status(500).send("Unable to find user"); }
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -71,7 +71,7 @@ module.exports = function(app, model) {
 		User.updateUser(userId, user)
 			.then(function(updatedUser) {
 				if (updatedUser) { res.send(updatedUser); }
-				else { res.status(400).send("Unable to update user"); }
+				else { res.status(500).send("Unable to update user"); }
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -83,7 +83,7 @@ module.exports = function(app, model) {
 		User.deleteUser(userId)
 			.then(function(user) {
 				if (user) { res.end(); }
-				else { res.status(400).send("Unable to delete user"); }
+				else { res.status(500).send("Unable to delete user"); }
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -91,6 +91,6 @@ module.exports = function(app, model) {
 
 	function handleError(err, res) {
 		console.log(err);
-		res.status(400).send("Something seems to have gone wrong...");
+		res.status(500).send("Something seems to have gone wrong...");
 	}
 }
