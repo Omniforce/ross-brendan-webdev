@@ -5,7 +5,7 @@
         .controller("NewWidgetController", NewWidgetController)
         .controller("EditWidgetController", EditWidgetController);
 
-    function WidgetListController($routeParams, $sce, WidgetService) {
+    function WidgetListController($routeParams, $sce, WidgetService, NotificationsService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -23,13 +23,17 @@
 
         function init() {
             WidgetService.findWidgetsByPageId(vm.pageId)
-                .then(function(response) {
-                    vm.widgets = response.data;
-                }, error);
+                .then(renderWidgets, function(error) {
+                        NotificationsService.showError(error.data);
+                    });
         }
         init();
+
+        function renderWidgets(response) {
+            vm.widgets = response.data;
+        }
     }
-    function NewWidgetController($routeParams, $location, WidgetService) {
+    function NewWidgetController($routeParams, $location, WidgetService, NotificationsService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -46,13 +50,17 @@
         vm.createWidget = createWidget;
         function createWidget(widgetType) {
             WidgetService.createWidget(vm.pageId, widgetType)
-                .then(function(response) {
-                    var newWidget = response.data;
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
-                }, error);
+                .then(widgetCreated, function(error) {
+                        NotificationsService.showError(error.data);
+                    });
+        }
+
+        function widgetCreated(response) {
+            var newWidget = response.data;
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
         }
     }
-    function EditWidgetController($routeParams, $location, WidgetService, notifications) {
+    function EditWidgetController($routeParams, $location, WidgetService, NotificationsService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -65,16 +73,12 @@
 
         function updateWidget(widget) {
             WidgetService.updateWidget(vm.widgetId, widget)
-                .then(function(response) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                }, error);
+                .then(widgetUpdated, handleError);
         }
 
         function deleteWidget() {
             WidgetService.deleteWidget(vm.widgetId)
-                .then(function(response) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                }, error);
+                .then(widgetDeleted, handleError);
         }
 
         function uploadFile() {
@@ -82,25 +86,32 @@
 
             if (file) {
                 WidgetService.uploadFile(file, vm.widget._id, vm.widget.width)
-                    .then(function(response) {
-                        vm.widget.width = response.data.width;
-                        vm.widget.url = response.data.url;
-                        notifications.showSuccess({message: "Image Uploaded"});
-                    }, error);
+                    .then(fileUploaded, handleError);
             }
         }
 
         function init() {
             WidgetService.findWidgetById(vm.widgetId)
-                .then(function(response) {
-                    vm.widget = response.data;
-                }, error);
+                .then(renderWidget, handleError);
         }
         init();
-    }
 
-    function error(response) {
-        console.log(response);
+        function widgetUpdated(response) {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+        }
+        function widgetDeleted(response) {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+        }
+        function fileUploaded(response) {
+            vm.widget.width = response.data.width;
+            vm.widget.url = response.data.url;
+            NotificationsService.showSuccess("Image Uploaded");
+        }
+        function renderWidget(response) {
+            vm.widget = response.data;
+        }
+        function handleError(error) {
+            NotificationsService.showError(error.data);
+        }
     }
-
 })();
