@@ -3,7 +3,7 @@
     	.module("WebAppMaker")
     	.config(Config);
 })();
- 
+
 function Config($routeProvider, notificationsConfigProvider) {
 	$routeProvider
 		.when("/", {
@@ -71,6 +71,11 @@ function Config($routeProvider, notificationsConfigProvider) {
 			controller: "EditWidgetController",
 			controllerAs: "model"
 		})
+        .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/search", {
+            templateUrl: "./views/widget/flickr/widget-flickr-search.view.client.html",
+            controller: "FlickrImageSearchController",
+            controllerAs: "model"
+        })
 		.otherwise({
 			templateUrl: "./views/user/login.view.client.html",
 			controller: "LoginController",

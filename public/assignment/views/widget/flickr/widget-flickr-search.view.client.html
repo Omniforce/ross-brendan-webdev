@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default navbar-fixed-top blue-navbar">
+	<div class="container-fluid">
+		<p class="navbar-text pull-left">
+     		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}" class="navbar-link white-navbar-link">
+        		<span class="glyphicon glyphicon-chevron-left"></span>
+      		</a>
+    	</p>
+    	<a class="navbar-brand bold-brand white-navbar-brand">Choose Widget</a>
+	</div>
+</nav>
+
+<div class="container">
+    <div class="input-group">
+        <input ng-model="searchText" type="text" class="form-control" placeholder="Search images">
+        <span class="input-group-btn">
+            <a ng-click="model.searchPhotos(searchText)" class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-search"></span>
+            </a>
+        </span>
+    </div>
+
+    <div id="flickrSearchResults">
+        <div class="row">
+            <div class="col-xs-3" ng-repeat="photo in model.photos.photo">
+                <img class="responsive-flickr-image" ng-click="model.selectPhoto(photo)" ng-src="https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom blue-navbar">
+    <div class="container-fluid">
+        <div class="navbar-text pull-right">
+            <a href="#!/user/{{model.userId}}" class="navbar-link white-navbar-link">
+            	<span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
+</nav>
