@@ -1,13 +1,13 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top blue-navbar">
 	<div class="container-fluid">
 		<p class="navbar-text pull-left">
-     		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
+     		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link white-navbar-link">
         		<span class="glyphicon glyphicon-chevron-left"></span>
       		</a>
     	</p>
-    	<a class="navbar-brand bold-brand">Widgets</a>
+    	<a class="navbar-brand bold-brand white-navbar-brand">Widgets</a>
     	<p class="navbar-text pull-right">
-    		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="navbar-link">
+    		<a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="navbar-link white-navbar-link">
             	<span class="glyphicon glyphicon-plus"></span>
             </a>
         </p>
@@ -31,27 +31,27 @@
                     <ng-include src="'views/widget/widget-list-templates/widget-list-html.view.client.html'">
                 </div>
                 <div ng-switch-when="TEXT">
-                    <ng-include src="'views/widget/widget-list-templates/widget-list-text.view.client.html'">                    
+                    <ng-include src="'views/widget/widget-list-templates/widget-list-text.view.client.html'">
                 </div>
             </div>
         </li>
     </ul>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar navbar-default navbar-fixed-bottom blue-navbar">
     <div class="container-fluid">
     	<div class="navbar-text nt-inline">
-    		<a class="navbar-link">
+    		<a class="navbar-link white-navbar-link">
     			<span class="glyphicon glyphicon-play"></span>
     		</a>
     	</div>
     	<div class="navbar-text nt-inline">
-    		<a class="navbar-link">
+    		<a class="navbar-link white-navbar-link">
     			<span class="glyphicon glyphicon-eye-open"></span>
     		</a>
     	</div>
         <div class="navbar-text nt-inline pull-right">
-            <a href="#!/user/{{model.userId}}" class="navbar-link blue-navbar-link">
+            <a href="#!/user/{{model.userId}}" class="navbar-link white-navbar-link">
             	<span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
