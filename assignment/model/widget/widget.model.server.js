@@ -36,8 +36,8 @@ module.exports = function() {
 	}
 
 	function updateWidgetImage(widgetId, filename, width) {
-		var changes = { 
-    		$set: { 
+		var changes = {
+    		$set: {
     			width: width,
     			url: "../../uploads/" + filename
     		}

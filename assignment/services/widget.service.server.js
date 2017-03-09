@@ -23,7 +23,7 @@ module.exports = function(app, model) {
 			.then(function(newWidget) {
 				Page.addWidget(newWidget._page, newWidget._id)
 					.then(function(page) {
-						res.send(newWidget);						
+						res.send(newWidget);
 					});
 			}, function(err) {
 				res.status(500).send("Unable to create new widget.");
@@ -48,7 +48,7 @@ module.exports = function(app, model) {
 			.then(function(widget) {
 				if(!widget) { res.status(500).send("Unable to find widget"); }
 
-				res.send(widget); 
+				res.send(widget);
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -74,7 +74,7 @@ module.exports = function(app, model) {
 		Widget.deleteWidget(widgetId)
 			.then(function(deletedWidget) {
 				if(!deletedWidget) { res.status(500).send("Unable to delete widget"); }
-				
+
 				Page.deleteWidget(deletedWidget._page, deletedWidget._id)
 					.then(function(page) {
 						res.send(deletedWidget);
@@ -93,7 +93,7 @@ module.exports = function(app, model) {
     	Widget.updateWidgetImage(widgetId, myFile.filename, width)
     		.then(function(updatedWidget) {
 				if(!updatedWidget) { res.send(500).send("Unable to upload image"); }
-				
+
 				res.send(updatedWidget);
 			}, function(err) {
 				handleError(err, res);
@@ -106,9 +106,8 @@ module.exports = function(app, model) {
 		var final = req.query.final;
 
 		Widget.reorderWidget(pageId, initial, final)
-			.then(function(something) {
-				if(something) { res.end(); }
-				else { res.status(500).send("Unable to reorder widgets"); }
+			.then(function(results) {
+                res.end();
 			}, function(err) {
 				handleError(err, res);
 			});

@@ -17,7 +17,8 @@ module.exports = function() {
 		class:       String,
 		icon:        String,
 		deletable:   Boolean,
-		formatted:   Boolean
+		formatted:   Boolean,
+        position:    Number
 	}, {
 		timestamps: { createdAt: 'dateCreated', updatedAt: 'dateUpdated' }
 	});
