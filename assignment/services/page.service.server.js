@@ -15,10 +15,7 @@ module.exports = function(app, model) {
 
 		Page.createPage(websiteId, page)
 			.then(function(newPage) {
-				Website.addPage(newPage._website, newPage._id)
-					.then(function(website) {
-						res.send(newPage);
-					});
+                res.send(newPage);
 			}, function(err) {
 				res.status(500).send("Unable to create new page");
 			});
@@ -68,11 +65,8 @@ module.exports = function(app, model) {
 		Page.deletePage(pageId)
 			.then(function(deletedPage) {
 				if(!deletedPage) { res.status(500).send("Unable to delete page"); }
-				
-				Website.deletePage(deletedPage._website, deletedPage._id)
-					.then(function(website) {
-						res.send(deletedPage);
-					});
+
+                res.send(deletedPage);
 			}, function(err) {
 				handleError(err, res);
 			});

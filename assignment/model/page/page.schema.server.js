@@ -8,7 +8,6 @@ module.exports = function() {
 		name:        String,
 		title:       String,
 		description: String,
-		widgets:     [{ type: Schema.Types.ObjectId, ref: 'Widget' }]
 	}, {
 		timestamps: { createdAt: 'dateCreated', updatedAt: 'dateUpdated' }
 	});

@@ -1,6 +1,5 @@
 module.exports = function(app, model) {
 
-	var Page = model.pageModel;
 	var Widget = model.widgetModel;
 
 	var multer  = require('multer');
@@ -21,10 +20,7 @@ module.exports = function(app, model) {
 
 		Widget.createWidget(pageId, { widgetType: widgetType })
 			.then(function(newWidget) {
-				Page.addWidget(newWidget._page, newWidget._id)
-					.then(function(page) {
-						res.send(newWidget);
-					});
+                res.send(newWidget);
 			}, function(err) {
 				res.status(500).send("Unable to create new widget.");
 			});
@@ -75,10 +71,7 @@ module.exports = function(app, model) {
 			.then(function(deletedWidget) {
 				if(!deletedWidget) { res.status(500).send("Unable to delete widget"); }
 
-				Page.deleteWidget(deletedWidget._page, deletedWidget._id)
-					.then(function(page) {
-						res.send(deletedWidget);
-					});
+                res.send(deletedWidget);
 			}, function(err) {
 				handleError(err, res);
 			});

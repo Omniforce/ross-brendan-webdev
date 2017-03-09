@@ -1,6 +1,5 @@
 module.exports = function(app, model) {
 
-	var User = model.userModel;
 	var Website = model.websiteModel;
 
 	app.post('/api/user/:userId/website', createWebsite);
@@ -15,10 +14,7 @@ module.exports = function(app, model) {
 
 		Website.createWebsiteForUser(userId, website)
 			.then(function(newWebsite) {
-				User.addWebsite(newWebsite._user, newWebsite.id)
-					.then(function(user) {
-						res.send(newWebsite);
-					});
+                res.send(newWebsite);
 			}, function(err) {
 				res.status(500).send("Unable to create new website");
 			});
@@ -69,10 +65,7 @@ module.exports = function(app, model) {
 			.then(function(deletedWebsite) {
 				if (!deletedWebsite) { res.status(500).send("Unable to delete website"); }
 
-				User.deleteWebsite(deletedWebsite._user, deletedWebsite._id)
-					.then(function(user) {
-						res.send(deletedWebsite);
-					});
+                res.send(deletedWebsite);
 			}, function(err) {
 				handleError(err, res);
 			});

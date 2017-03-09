@@ -11,8 +11,6 @@ module.exports = function() {
 		findUserByCredentials: findUserByCredentials,
 		updateUser: updateUser,
 		deleteUser: deleteUser,
-		addWebsite: addWebsite,
-		deleteWebsite: deleteWebsite
 	};
 
 	return api;
@@ -47,11 +45,6 @@ module.exports = function() {
 
 	function addWebsite(userId, websiteId) {
 		var change = { $push: { websites: websiteId } }
-		return User.findByIdAndUpdate(userId, change, { new: true });
-	}
-
-	function deleteWebsite(userId, websiteId) {
-		var change = { $pull: { websites: websiteId } }
 		return User.findByIdAndUpdate(userId, change, { new: true });
 	}
 }
