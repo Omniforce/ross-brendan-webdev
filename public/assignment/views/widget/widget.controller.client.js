@@ -103,9 +103,7 @@
             $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
         }
         function fileUploaded(response) {
-            vm.widget.width = response.data.width;
-            vm.widget.url = response.data.url;
-            NotificationsService.showSuccess("Image Uploaded");
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
         }
         function renderWidget(response) {
             vm.widget = response.data;

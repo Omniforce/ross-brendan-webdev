@@ -2,6 +2,8 @@ module.exports = function(app, model) {
 
 	var Widget = model.widgetModel;
 
+    var deleteImage = require("../util/deleteImage.js");
+
 	var multer  = require('multer');
 	var upload = multer({ dest: __dirname + '/../../public/uploads/' });
 
@@ -55,10 +57,11 @@ module.exports = function(app, model) {
 		var widget = req.body;
 
 		Widget.updateWidget(widgetId, widget)
-			.then(function(updatedWidget) {
-				if(!updatedWidget) { res.status(500).send("Unable to update widget"); }
+			.then(function(oldWidget) {
+				if(!oldWidget) { res.status(500).send("Unable to update widget"); }
 
-				res.send(updatedWidget);
+                if (widget.url != oldWidget.url) { deleteImage(oldWidget.url); }
+				res.send(oldWidget);
 			}, function(err) {
 				handleError(err, res);
 			});
@@ -71,23 +74,23 @@ module.exports = function(app, model) {
 			.then(function(deletedWidget) {
 				if(!deletedWidget) { res.status(500).send("Unable to delete widget"); }
 
+                deleteImage(deletedWidget.url);
                 res.send(deletedWidget);
 			}, function(err) {
 				handleError(err, res);
 			});
 	}
 
-
     function uploadImage(req, res) {
     	var widgetId = req.body.widgetId;
-    	var width = req.body.width;
     	var myFile = req.file;
 
-    	Widget.updateWidgetImage(widgetId, myFile.filename, width)
-    		.then(function(updatedWidget) {
-				if(!updatedWidget) { res.send(500).send("Unable to upload image"); }
+    	Widget.updateWidgetImage(widgetId, myFile.filename)
+    		.then(function(oldWidget) {
+				if(!oldWidget) { res.send(500).send("Unable to upload image"); }
 
-				res.send(updatedWidget);
+                deleteImage(oldWidget.url);
+                res.send(oldWidget);
 			}, function(err) {
 				handleError(err, res);
 			});

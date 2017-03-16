@@ -36,18 +36,11 @@ module.exports = function() {
     }
 
     function updateWidget(widgetId, widget) {
-        return Widget.findByIdAndUpdate(widgetId, widget, { new: true });
+        return Widget.findByIdAndUpdate(widgetId, widget);
     }
 
-    function updateWidgetImage(widgetId, filename, width) {
-        var changes = {
-            $set: {
-                width: width,
-                url: "../../uploads/" + filename
-            }
-        };
-
-        return updateWidget(widgetId, changes);
+    function updateWidgetImage(widgetId, filename) {
+        return updateWidget(widgetId, {$set: {url: "../../uploads/" + filename}});
     }
 
     function deleteWidget(widgetId) {
