@@ -1,9 +1,9 @@
 module.exports = function() {
 
     var mongoose = require("mongoose");
-    var mongojs  = require('mongojs');
+    var db = require("../util/db.js");
 
-    mongoose.connect('mongodb://127.0.0.1:27017/dev');
+    mongoose.connect(db.url);
 
     var userModel = require('./user/user.model.server.js')();
     var websiteModel = require('./website/website.model.server.js')();
