@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var db = require("../util/db.js");
 
 mongoose.connect(db.url);
+mongoose.Promise = require('q').Promise;
 
 var userModel = require('./user/user.model.server.js');
 var websiteModel = require('./website/website.model.server.js');
