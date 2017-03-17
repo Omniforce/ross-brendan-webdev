@@ -35,12 +35,12 @@ module.exports = function(app, model) {
 	function findAllWidgetsForPage(req, res) {
 		var pageId = req.params.pageId;
 
-		Widget.findAllWidgetsForPage(pageId)
-			.then(function(widgets) {
-				res.send(widgets)
-			}, function(err) {
-				res.status(500).send("Unable to create new widget");
-			});
+        Page.findPageByIdWithWidgets(pageId)
+            .then(function(page) {
+                res.send(page.widgets);
+            }, function(err) {
+                res.status(500).send("Unable to find widgets");
+            });
 	}
 
 	function findWidgetById(req, res) {
@@ -94,7 +94,7 @@ module.exports = function(app, model) {
 
     	Widget.updateWidgetImage(widgetId, myFile.filename)
     		.then(function(oldWidget) {
-				if(!oldWidget) { res.send(500).send("Unable to upload image"); }
+				if(!oldWidget) { res.status(500).send("Unable to upload image"); }
 
                 deleteImage(oldWidget.url);
                 res.send(oldWidget);
@@ -108,12 +108,14 @@ module.exports = function(app, model) {
 		var initial = req.query.initial;
 		var final = req.query.final;
 
-		Widget.reorderWidget(pageId, initial, final)
-			.then(function(results) {
+        Page.reorderWidget(pageId, initial, final)
+            .then(function(page) {
+                if(!page) { res.status(500).send("Unable to update widget order"); }
+
                 res.end();
-			}, function(err) {
-				handleError(err, res);
-			});
+            }, function(err) {
+                handleError(err, res);
+            });
 	}
 
 	function handleError(err, res) {

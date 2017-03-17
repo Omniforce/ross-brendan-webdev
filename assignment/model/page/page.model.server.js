@@ -10,7 +10,9 @@ var api = {
     updatePage: updatePage,
     deletePage: deletePage,
     addWidget: addWidget,
-    deleteWidget: deleteWidget
+    deleteWidget: deleteWidget,
+    findPageByIdWithWidgets: findPageByIdWithWidgets,
+    reorderWidget: reorderWidget
 };
 
 module.exports = api;
@@ -46,4 +48,18 @@ function addWidget(pageId, widgetId) {
 function deleteWidget(pageId, widgetId) {
     var change = { $pull: { widgets: widgetId } }
     return Page.findByIdAndUpdate(pageId, change, { new: true });
+}
+
+function findPageByIdWithWidgets(pageId) {
+    return Page.findById(pageId).populate('widgets').select('widgets -_id');
+}
+
+function reorderWidget(pageId, start, end) {
+    return Page.findById(pageId).then(function(page) {
+        var widgets = page.widgets;
+        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+
+        page.widgets = widgets;
+        return page.save();
+    });
 }

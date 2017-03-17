@@ -10,7 +10,6 @@ var api = {
     updateWidget: updateWidget,
     updateWidgetImage: updateWidgetImage,
     deleteWidget: deleteWidget,
-    reorderWidget: reorderWidget
 };
 
 module.exports = api;
@@ -40,8 +39,4 @@ function updateWidgetImage(widgetId, filename) {
 
 function deleteWidget(widgetId) {
     return Widget.findByIdAndRemove(widgetId);
-}
-
-function reorderWidget(pageId, start, end) {
-    // stuff
 }
