@@ -1,39 +1,37 @@
 var mongoose = require('mongoose');
 
-module.exports = function() {
-	var pageSchema = require('./page.schema.server.js')();
-	var Page = mongoose.model('Page', pageSchema);
+var pageSchema = require('./page.schema.server.js');
+var Page = mongoose.model('Page', pageSchema);
 
-	var api = {
-		createPage: createPage,
-		findAllPagesForWebsite: findAllPagesForWebsite,
-		findPageById: findPageById,
-		updatePage: updatePage,
-		deletePage: deletePage,
-	};
+var api = {
+    createPage: createPage,
+    findAllPagesForWebsite: findAllPagesForWebsite,
+    findPageById: findPageById,
+    updatePage: updatePage,
+    deletePage: deletePage,
+};
 
-	return api;
+module.exports = api;
 
-	function createPage(websiteId, page) {
-		var newPage = new Page(page);
-		newPage._website = websiteId;
+function createPage(websiteId, page) {
+    var newPage = new Page(page);
+    newPage._website = websiteId;
 
-		return newPage.save();
-	}
+    return newPage.save();
+}
 
-	function findAllPagesForWebsite(websiteId) {
-		return Page.find({ _website: websiteId });
-	}
+function findAllPagesForWebsite(websiteId) {
+    return Page.find({ _website: websiteId });
+}
 
-	function findPageById(pageId) {
-		return Page.findById(pageId);
-	}
+function findPageById(pageId) {
+    return Page.findById(pageId);
+}
 
-	function updatePage(pageId, page) {
-		return Page.findByIdAndUpdate(pageId, page, { new: true });
-	}
+function updatePage(pageId, page) {
+    return Page.findByIdAndUpdate(pageId, page, { new: true });
+}
 
-	function deletePage(pageId) {
-		return Page.findByIdAndRemove(pageId);
-	}
+function deletePage(pageId) {
+    return Page.findByIdAndRemove(pageId);
 }

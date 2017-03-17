@@ -1,49 +1,47 @@
 var mongoose = require('mongoose');
 
-module.exports = function() {
-    var widgetSchema = require('./widget.schema.server.js')();
-    var Widget = mongoose.model('Widget', widgetSchema);
+var widgetSchema = require('./widget.schema.server.js');
+var Widget = mongoose.model('Widget', widgetSchema);
 
-    var api = {
-        createWidget: createWidget,
-        findAllWidgetsForPage: findAllWidgetsForPage,
-        findWidgetById: findWidgetById,
-        updateWidget: updateWidget,
-        updateWidgetImage: updateWidgetImage,
-        deleteWidget: deleteWidget,
-        reorderWidget: reorderWidget
-    };
+var api = {
+    createWidget: createWidget,
+    findAllWidgetsForPage: findAllWidgetsForPage,
+    findWidgetById: findWidgetById,
+    updateWidget: updateWidget,
+    updateWidgetImage: updateWidgetImage,
+    deleteWidget: deleteWidget,
+    reorderWidget: reorderWidget
+};
 
-    return api;
+module.exports = api;
 
-    function createWidget(pageId, widget) {
-        var newWidget = new Widget(widget);
-        newWidget._page = pageId;
+function createWidget(pageId, widget) {
+    var newWidget = new Widget(widget);
+    newWidget._page = pageId;
 
-        return newWidget.save();
-    }
+    return newWidget.save();
+}
 
-    function findAllWidgetsForPage(pageId) {
-        return Widget.find({ _page: pageId });
-    }
+function findAllWidgetsForPage(pageId) {
+    return Widget.find({ _page: pageId });
+}
 
-    function findWidgetById(widgetId) {
-        return Widget.findById(widgetId);
-    }
+function findWidgetById(widgetId) {
+    return Widget.findById(widgetId);
+}
 
-    function updateWidget(widgetId, widget) {
-        return Widget.findByIdAndUpdate(widgetId, widget);
-    }
+function updateWidget(widgetId, widget) {
+    return Widget.findByIdAndUpdate(widgetId, widget);
+}
 
-    function updateWidgetImage(widgetId, filename) {
-        return updateWidget(widgetId, {$set: {url: "../../uploads/" + filename}});
-    }
+function updateWidgetImage(widgetId, filename) {
+    return updateWidget(widgetId, {$set: {url: "../../uploads/" + filename}});
+}
 
-    function deleteWidget(widgetId) {
-        return Widget.findByIdAndRemove(widgetId);
-    }
+function deleteWidget(widgetId) {
+    return Widget.findByIdAndRemove(widgetId);
+}
 
-    function reorderWidget(pageId, start, end) {
-        // stuff
-    }
+function reorderWidget(pageId, start, end) {
+    // stuff
 }
