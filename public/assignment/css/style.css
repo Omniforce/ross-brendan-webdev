@@ -153,7 +153,6 @@ a:hover {
     margin-bottom: 5px;
 }
 
-.responsive-flickr-image {
-    width: 100%;
-    height: auto;
+#flickrSearchResults {
+    padding-top: 10px;
 }

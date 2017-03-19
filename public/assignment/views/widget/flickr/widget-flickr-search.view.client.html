@@ -19,11 +19,9 @@
         </span>
     </div>
 
-    <div id="flickrSearchResults">
-        <div class="row">
-            <div class="col-xs-3" ng-repeat="photo in model.photos.photo">
-                <img class="responsive-flickr-image" ng-click="model.selectPhoto(photo)" ng-src="https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"/>
-            </div>
+    <div class="row" id="flickrSearchResults">
+        <di class="col-xs-4" ng-repeat="photo in model.photos.photo">
+            <img class="responsive-flickr-image" ng-click="model.selectPhoto(photo)" ng-src="https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"/>
         </div>
     </div>
 </div>
