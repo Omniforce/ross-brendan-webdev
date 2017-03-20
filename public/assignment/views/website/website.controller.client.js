@@ -5,39 +5,49 @@
         .controller("NewWebsiteController", NewWebsiteController)
         .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteListController($routeParams, WebsiteService) {
+    function WebsiteListController($routeParams, WebsiteService, NotificationsService) {
         var vm = this
         vm.userId = $routeParams["uid"];
 
         function init() {
             WebsiteService.findWebsitesByUser(vm.userId)
-                .then(function(response) {
-                    vm.websites = response.data;
-                }, error);
+                .then(renderWebsites, function(error) {
+                        NotificationsService.showError(error.data);
+                    });
         }
         init();
+
+        function renderWebsites(response) {
+            vm.websites = response.data;
+        }
     }
-    function NewWebsiteController($routeParams, $location, WebsiteService) {
+    function NewWebsiteController($routeParams, $location, WebsiteService, NotificationsService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
 
         vm.createWebsite = createWebsite;
         function createWebsite(website) {
             WebsiteService.createWebsite(vm.userId, website)
-                .then(function(response) {
-                    $location.url("/user/" + vm.userId + "/website");
-                }, error);
+                .then(userCreated, handleError);
         }
 
         function init() {
             WebsiteService.findWebsitesByUser(vm.userId)
-                .then(function(response) {
-                    vm.websites = response.data;
-                }, error);
+                .then(renderWebsites, handleError);
         }
         init();
+
+        function userCreated(response) {
+            $location.url("/user/" + vm.userId + "/website");
+        }
+        function renderWebsites(response) {
+            vm.websites = response.data;
+        }
+        function handleError(error) {
+            NotificationsService.showError(error.data);
+        }
     }
-    function EditWebsiteController($routeParams, $location, WebsiteService) {
+    function EditWebsiteController($routeParams, $location, WebsiteService, NotificationsService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -47,34 +57,37 @@
 
         function updateWebsite(website) {
             WebsiteService.updateWebsite(vm.websiteId, website)
-                .then(function(response) {
-                    $location.url("/user/" + vm.userId + "/website");
-                }, error);
+                .then(websiteUpdated, handleError);
         }
 
         function deleteWebsite() {
             WebsiteService.deleteWebsite(vm.websiteId)
-                .then(function(response) {
-                    $location.url("/user/" + vm.userId + "/website");
-                }, error);
+                .then(websiteDeleted, handleError);
         }
 
         function init() {
             WebsiteService.findWebsitesByUser(vm.userId)
-                .then(function(response) {
-                    vm.websites = response.data;
-                }, error);
+                .then(renderWebsites, handleError);
 
             WebsiteService.findWebsiteById(vm.websiteId)
-                .then(function(response) {
-                    vm.website = response.data
-                }, error);
+                .then(renderWebsite, handleError);
         }
         init();
-    }
 
-    function error(response) {
-        console.log(response);
+        function websiteUpdated(response) {
+            $location.url("/user/" + vm.userId + "/website");
+        }
+        function websiteDeleted(response) {
+            $location.url("/user/" + vm.userId + "/website");
+        }
+        function renderWebsites(response) {
+            vm.websites = response.data;
+        }
+        function renderWebsite(response) {
+            vm.website = response.data
+        }
+        function handleError(error) {
+            NotificationsService.showError(error.data);
+        }
     }
-
 })();

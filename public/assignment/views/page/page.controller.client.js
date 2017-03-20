@@ -5,20 +5,24 @@
         .controller("NewPageController", NewPageController)
         .controller("EditPageController", EditPageController);
 
-    function PageListController($routeParams, PageService) {
+    function PageListController($routeParams, PageService, NotificationsService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
 
         function init() {
             PageService.findPagesByWebsiteId(vm.websiteId)
-                .then(function(response) {
-                    vm.pages = response.data;
-                }, error);
+                .then(renderPages, function(error) {
+                        NotificationsService.showError(error.data);
+                    });
         }
         init();
+
+        function renderPages(response) {
+            vm.pages = response.data;
+        }
     }
-    function NewPageController($routeParams, $location, PageService) {
+    function NewPageController($routeParams, $location, PageService, NotificationsService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -26,20 +30,28 @@
         vm.createPage = createPage;
         function createPage(page) {
             PageService.createPage(vm.websiteId, page)
-                .then(function(data) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                }, error);
+                .then(pageCreated, function(error) {
+                        NotificationsService.showError(error.data);
+                    });
         }
 
         function init() {
             PageService.findPagesByWebsiteId(vm.websiteId)
-                .then(function(response) {
-                    vm.pages = response.data;
-                }, error);
+                .then(renderPages, handleError);
         }
         init();
+
+        function pageCreated(response) {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+        }
+        function renderPages(response) {
+            vm.pages = response.data;
+        }
+        function handleError(error) {
+            NotificationsService.showError(error.data);
+        }
     }
-    function EditPageController($routeParams, $location, PageService) {
+    function EditPageController($routeParams, $location, PageService, NotificationsService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -50,33 +62,36 @@
 
         function updatePage(page) {
             PageService.updatePage(vm.pageId, page)
-                .then(function(response) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                }, error);
+                .then(pageUpdated, handleError);
         }
         function deletePage() {
             PageService.deletePage(vm.pageId)
-                .then(function(response) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                }, error);
+                .then(pageDeleted, handleError);
         }
 
         function init() {
             PageService.findPagesByWebsiteId(vm.websiteId)
-                .then(function(response) {
-                    vm.pages = response.data;
-                }, error);
+                .then(renderPages, handleError);
 
             PageService.findPageById(vm.pageId)
-                .then(function(response) {
-                    vm.page = response.data;
-                }, error);
+                .then(renderPage, handleError);
         }
         init();
-    }
 
-    function error(response) {
-        console.log(response);
+        function pageUpdated(response) {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+        }
+        function pageDeleted(response) {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+        }
+        function renderPages(response) {
+            vm.pages = response.data;
+        }
+        function renderPage(response) {
+            vm.page = response.data;
+        }
+        function handleError(error) {
+            NotificationsService.showError(error.data);
+        }
     }
-
 })();

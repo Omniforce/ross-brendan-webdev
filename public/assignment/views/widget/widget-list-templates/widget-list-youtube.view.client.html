@@ -1,0 +1,12 @@
+<div class="widget widget-youtube">
+    <div class="widget-edit-buttons btn-group-sm">
+        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+            <span class="glyphicon glyphicon-cog"></span>
+        </a>
+        <span class="drag glyphicon glyphicon-align-justify black-icon"></span>
+    </div>
+    <div class="responsive-video embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="{{model.getEmbedUrl(widget.url)}}"></iframe>
+    </div>
+    <p class="youtube-text">{{widget.text}}</p>
+</div>

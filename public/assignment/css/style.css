@@ -115,8 +115,13 @@ a:hover {
 	position: relative;
 }
 
+.widget-text {
+	margin-bottom: 5px;
+}
+
 .widget-edit-buttons {
 	background-color: #FFF;
+	opacity: 0.8;
 	border-radius: 0px 0px 0px 5px;
 	padding: 3px;
 
@@ -146,4 +151,8 @@ a:hover {
 	max-width: 100%;
     height: auto;
     margin-bottom: 5px;
+}
+
+#flickrSearchResults {
+    padding-top: 10px;
 }

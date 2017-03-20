@@ -1,4 +1,6 @@
-module.exports = function(app) {
+module.exports = function(app, model) {
+
+	var Website = model.websiteModel;
 
 	app.post('/api/user/:userId/website', createWebsite);
 	app.get('/api/user/:userId/website', findAllWebsitesForUser);
@@ -6,66 +8,71 @@ module.exports = function(app) {
 	app.put('/api/website/:websiteId', updateWebsite);
 	app.delete('/api/website/:websiteId', deleteWebsite);
 
-    var websites = [
-        { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
-        { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
-        { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Lorem" },
-        { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-        { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Lorem" },
-        { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
-    ]
-
 	function createWebsite(req, res) {
 		var userId = req.params.userId;
 		var website = req.body;
 
-		website._id = new Date().getTime();
-		website.developerId = userId;
-		websites.push(website);
-
-		res.send(website);
+		Website.createWebsiteForUser(userId, website)
+			.then(function(newWebsite) {
+                res.send(newWebsite);
+			}, function(err) {
+				res.status(500).send("Unable to create new website");
+			});
 	}
 
 	function findAllWebsitesForUser(req, res) {
 		var userId = req.params.userId;
 
-		var websitesForUser = websites.filter(function(website) {
-			return userId == website.developerId;
-		});
-
-		res.send(websitesForUser);
+		Website.findAllWebsitesForUser(userId)
+			.then(function(websites) {
+				res.send(websites);
+			}, function(err) {
+				handleError(err, res);
+			});
 	}
 
 	function findWebsiteById(req, res) {
 		var websiteId = req.params.websiteId;
 
-		var website = websites.find(function(website) {
-			return websiteId == website._id;
-		});
+		Website.findWebsiteById(websiteId)
+			.then(function(website) {
+				if (!website) { res.status(500).send("Unable to find website"); }
 
-		res.send(website);
+				res.send(website);
+			}, function(err) {
+				handleError(err, res);
+			});
 	}
 
 	function updateWebsite(req, res) {
 		var websiteId = req.params.websiteId;
-		var index = getIndexOfWebsite(websiteId);
 		var website = req.body;
 
-		if (index > -1) { websites[index] = website; }
-		res.send(website)
+		Website.updateWebsite(websiteId, website)
+			.then(function(updatedWebsite) {
+				if (!updatedWebsite) { res.status(500).send("Unable to update website"); }
+
+				res.send(updatedWebsite);
+			}, function(err) {
+				handleError(err, res);
+			});
 	}
 
 	function deleteWebsite(req, res) {
 		var websiteId = req.params.websiteId;
-		var index = getIndexOfWebsite(websiteId);
 
-		if (index > -1) { websites.splice(index, 1); }
-		res.end();
+		Website.deleteWebsite(websiteId)
+			.then(function(deletedWebsite) {
+				if (!deletedWebsite) { res.status(500).send("Unable to delete website"); }
+
+                res.send(deletedWebsite);
+			}, function(err) {
+				handleError(err, res);
+			});
 	}
 
-	function getIndexOfWebsite(websiteId) {
-		return websites.findIndex(function(website) {
-			return websiteId == website._id;
-		});
+	function handleError(err, res) {
+		console.log(err);
+		res.status(500).send("Something seems to have gone wrong...");
 	}
 }

@@ -1,4 +1,7 @@
-module.exports = function(app) {
+module.exports = function(app, model) {
+
+	var Website = model.websiteModel;
+	var Page = model.pageModel;
 
 	app.post('/api/website/:websiteId/page', createPage);
 	app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
@@ -6,65 +9,71 @@ module.exports = function(app) {
 	app.put('/api/page/:pageId', updatePage);
 	app.delete('/api/page/:pageId', deletePage);
 
-    var pages = [
-        { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-        { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-        { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
-    ]
-
 	function createPage(req, res) {
 		var websiteId = req.params.websiteId;
 		var page = req.body;
 
-		page._id = new Date().getTime();
-		page.websiteId = websiteId;
-		pages.push(page);
-
-		res.send(page); 
+		Page.createPage(websiteId, page)
+			.then(function(newPage) {
+                res.send(newPage);
+			}, function(err) {
+				res.status(500).send("Unable to create new page");
+			});
 	}
 
 	function findAllPagesForWebsite(req, res) {
 		var websiteId = req.params.websiteId;
 
-		var pagesForWebsite = pages.filter(function(page) {
-			return websiteId == page.websiteId;
-		});
-
-		res.send(pagesForWebsite);
+		Page.findAllPagesForWebsite(websiteId)
+			.then(function(pages) {
+				res.send(pages);
+			}, function(err) {
+				handleError(err, res);
+			});
 	}
 
 	function findPageById(req, res) {
 		var pageId = req.params.pageId;
 
-		var page = pages.find(function(page) {
-			return pageId == page._id;
-		});
+		Page.findPageById(pageId)
+			.then(function(page) {
+				if (!page) { res.status(500).send("Unable to find page"); }
 
-		res.send(page);
+				res.send(page);
+			}, function(err) {
+				handleError(err, res);
+			});
 	}
 
 	function updatePage(req, res) {
 		var pageId = req.params.pageId;
-		var index = getIndexOfPage(pageId);
 		var page = req.body;
 
-		if (index > -1) { pages[index] = page; }
-		
-		res.send(page);
+		Page.updatePage(pageId, page)
+			.then(function(updatedPage) {
+				if(!updatedPage) { res.status(500).send("Unable to update page"); }
+
+				res.send(updatedPage);
+			}, function(err) {
+				handleError(err, res);
+			});
 	}
 
 	function deletePage(req, res) {
 		var pageId = req.params.pageId;
-		var index = getIndexOfPage(pageId);
 
-		if (index > -1) { pages.splice(index, 1); }
+		Page.deletePage(pageId)
+			.then(function(deletedPage) {
+				if(!deletedPage) { res.status(500).send("Unable to delete page"); }
 
-		res.end();
+                res.send(deletedPage);
+			}, function(err) {
+				handleError(err, res);
+			});
 	}
 
-	function getIndexOfPage(pageId) {
-		return pages.findIndex(function(page) {
-			return pageId == page._id;
-		});
+	function handleError(err, res) {
+		console.log(err);
+		res.status(500).send("Something seems to have gone wrong...");
 	}
 }
