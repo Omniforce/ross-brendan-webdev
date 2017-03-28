@@ -27,19 +27,15 @@
         vm.register = register;
 
         function register(user) {
-            if (user && user.password == user.verypassword) {
-                UserService.createUser(user)
-                    .then(success, function(error) {
-                        NotificationsService.showError(error.data);
-                    });
-            }
+            UserService.register(user)
+                .then(success, function(error) {
+                    NotificationsService.showError(error);
+                });
         }
 
         function success(response) {
-            newUser = response.data;
-            if (newUser) {
-                $location.url("/user/" + newUser._id);
-            }
+            var user = response.data;
+            $location.url("/user/"+user._id);
         }
     }
 
