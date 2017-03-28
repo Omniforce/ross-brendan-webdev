@@ -9,6 +9,7 @@
             "login"                 : login,
             "logout"                : logout,
             "register"              : register,
+            "checkLoggedIn"         : checkLoggedIn,
             "createUser"            : createUser,
             "findUserByUsername"    : findUserByUsername,
             "findUserByCredentials" : findUserByCredentials,
@@ -27,6 +28,9 @@
         }
         function register(user) {
             return $http.post('/api/register', user);
+        }
+        function checkLoggedIn() {
+            return $http.get('/api/loggedin');
         }
         function createUser(user) {
             return $http.post('/api/user', user);

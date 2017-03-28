@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 
-var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var passport = require('passport');
@@ -9,7 +8,6 @@ var passport = require('passport');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cookieParser());
 app.use(session({
     resave: false,
     saveUninitialized: true,
