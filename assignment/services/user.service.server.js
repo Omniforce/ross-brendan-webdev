@@ -1,3 +1,6 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 module.exports = function(app, model) {
 
 	var User = model.userModel;
@@ -7,7 +10,38 @@ module.exports = function(app, model) {
 	app.get('/api/user/:userId', findUserById);
 	app.put('/api/user/:userId', updateUser);
 	app.delete('/api/user/:userId', deleteUser);
-    
+
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    passport.use(new LocalStrategy(localStrategy));
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        User.findUserById(user._id)
+            .then(function(user) {
+                done(null, user);
+            }, function(err) {
+                done(err, null);
+            });
+    }
+
+    function localStrategy(username, password, done) {
+        User.findUserByCredentials(username, password)
+            .then(function(user) {
+                if (user.username === username && user.password === password) {
+                    return done(null, user);
+                } else {
+                    return done(null, false);
+                }
+            }, function(err) {
+                return done(err, null);
+            });
+    }
+
 	function handleQueries(req, res) {
 		if(req.query.username && req.query.password) {
 			findUserByCredentials(req, res);
@@ -56,7 +90,7 @@ module.exports = function(app, model) {
 		var userId = req.params.userId;
 
 		User.findUserById(userId)
-			.then(function(user) {		
+			.then(function(user) {
 				if (user) { res.send(user); }
 				else { res.status(500).send("Unable to find user"); }
 			}, function(err) {
