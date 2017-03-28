@@ -10,19 +10,15 @@
         vm.login = login;
 
         function login(user) {
-            if (user) {
-                UserService.findUserByCredentials(user.username, user.password)
-                    .then(success, function(error) {
-                        NotificationsService.showError(error.data);
-                    });
-            }
+            UserService.login(user)
+                .then(success, function(error) {
+                    NotificationsService.showError(error.data);
+                });
         }
 
         function success(response) {
-            var loggedInUser = response.data;
-            if (loggedInUser) {
-                $location.url("/user/" + loggedInUser._id);
-            }
+            var user = response.data;
+            $location.url("/user/"+user._id);
         }
     }
 

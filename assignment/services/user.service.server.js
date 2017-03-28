@@ -5,6 +5,8 @@ module.exports = function(app, model) {
 
 	var User = model.userModel;
 
+    app.post  ('/api/login', passport.authenticate('local'), login);
+
 	app.post('/api/user', createUser);
 	app.get('/api/user', handleQueries);
 	app.get('/api/user/:userId', findUserById);
@@ -40,6 +42,11 @@ module.exports = function(app, model) {
             }, function(err) {
                 return done(err, null);
             });
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.send(user);
     }
 
 	function handleQueries(req, res) {
