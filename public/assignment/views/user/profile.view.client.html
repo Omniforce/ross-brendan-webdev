@@ -32,7 +32,7 @@
     </form>
 
     <a class="btn btn-primary btn-block" href="#!/user/{{model.userId}}/website">Websites</a>
-    <a class="btn btn-danger btn-block extra-bottom" href="#!/login">Logout</a>
+    <a ng-click="model.logout()" class="btn btn-danger btn-block extra-bottom">Logout</a>
 </div>
 
 <nav class="navbar navbar-default blue-navbar navbar-fixed-bottom">

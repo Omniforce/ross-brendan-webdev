@@ -5,7 +5,8 @@ module.exports = function(app, model) {
 
 	var User = model.userModel;
 
-    app.post  ('/api/login', passport.authenticate('local'), login);
+    app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/logout', logout);
 
 	app.post('/api/user', createUser);
 	app.get('/api/user', handleQueries);
@@ -47,6 +48,11 @@ module.exports = function(app, model) {
     function login(req, res) {
         var user = req.user;
         res.send(user);
+    }
+
+    function logout(req, res) {
+        req.logout();
+        res.send(200);
     }
 
 	function handleQueries(req, res) {

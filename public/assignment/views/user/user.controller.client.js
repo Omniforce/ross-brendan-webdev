@@ -48,11 +48,18 @@
 		vm.userId = $routeParams["uid"];
 
         vm.updateUser = updateUser;
+        vm.logout = logout;
+
         function updateUser(user) {
             UserService.updateUser(vm.userId, user)
                 .then(userUpdated, handleError);
         }
-
+        function logout() {
+            UserService.logout()
+                .then(function(response) {
+                    $location.url('/login')
+                }, handleError);
+        }
         function init() {
             UserService.findUserById(vm.userId)
                 .then(renderProfile, handleError);
