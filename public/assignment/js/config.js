@@ -4,7 +4,7 @@
     	.config(Config);
 })();
 
-function Config($routeProvider, notificationsConfigProvider) {
+function Config($routeProvider) {
 	$routeProvider
 		.when("/", {
 			templateUrl: "./views/user/login.view.client.html",
@@ -82,9 +82,6 @@ function Config($routeProvider, notificationsConfigProvider) {
 			controller: "LoginController",
 			controllerAs: "model"
 		});
-
-	notificationsConfigProvider.setAutoHide(true);
-    notificationsConfigProvider.setHideDelay(3000);
 }
 
 function checkLoggedIn( $rootScope, $location, $http ) {

@@ -5,14 +5,14 @@
         .controller("RegisterController", RegisterController)
         .controller("ProfileController", ProfileController);
 
-    function LoginController($location, UserService, NotificationsService) {
+    function LoginController($location, UserService) {
         var vm = this;
         vm.login = login;
 
         function login(user) {
             UserService.login(user)
                 .then(success, function(error) {
-                    NotificationsService.showError(error.data);
+                    console.log(error);
                 });
         }
 
@@ -22,14 +22,14 @@
         }
     }
 
-    function RegisterController($location, UserService, NotificationsService) {
+    function RegisterController($location, UserService) {
     	var vm = this;
         vm.register = register;
 
         function register(user) {
             UserService.register(user)
                 .then(success, function(error) {
-                    NotificationsService.showError(error);
+                    console.log(error);
                 });
         }
 
@@ -39,7 +39,7 @@
         }
     }
 
-    function ProfileController($routeParams, $location, UserService, NotificationsService) {
+    function ProfileController($routeParams, $location, UserService) {
 		var vm = this;
 		vm.userId = $routeParams["uid"];
 
@@ -48,7 +48,7 @@
 
         function updateUser(user) {
             UserService.updateUser(vm.userId, user)
-                .then(userUpdated, handleError);
+                .then(function(updateUser) {}, handleError);
         }
         function logout() {
             UserService.logout()
@@ -62,17 +62,11 @@
         }
         init();
 
-        function userUpdated(response) {
-            updatedUser = response.data;
-            if (updatedUser) {
-                NotificationsService.showSuccess("User information updated");
-            }
-        }
         function renderProfile(response) {
             vm.user = response.data;
         }
         function handleError(error) {
-            NotificationsService.showError(error.data);
+            console.log(error);
         }
 	}
 })();

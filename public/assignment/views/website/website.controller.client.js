@@ -5,14 +5,14 @@
         .controller("NewWebsiteController", NewWebsiteController)
         .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteListController($routeParams, WebsiteService, NotificationsService) {
+    function WebsiteListController($routeParams, WebsiteService) {
         var vm = this
         vm.userId = $routeParams["uid"];
 
         function init() {
             WebsiteService.findWebsitesByUser(vm.userId)
                 .then(renderWebsites, function(error) {
-                        NotificationsService.showError(error.data);
+                        console.log(error);
                     });
         }
         init();
@@ -21,7 +21,7 @@
             vm.websites = response.data;
         }
     }
-    function NewWebsiteController($routeParams, $location, WebsiteService, NotificationsService) {
+    function NewWebsiteController($routeParams, $location, WebsiteService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
 
@@ -44,10 +44,10 @@
             vm.websites = response.data;
         }
         function handleError(error) {
-            NotificationsService.showError(error.data);
+            console.log(error);
         }
     }
-    function EditWebsiteController($routeParams, $location, WebsiteService, NotificationsService) {
+    function EditWebsiteController($routeParams, $location, WebsiteService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -87,7 +87,7 @@
             vm.website = response.data
         }
         function handleError(error) {
-            NotificationsService.showError(error.data);
+            console.log(error);
         }
     }
 })();

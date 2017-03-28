@@ -5,7 +5,7 @@
         .controller("NewPageController", NewPageController)
         .controller("EditPageController", EditPageController);
 
-    function PageListController($routeParams, PageService, NotificationsService) {
+    function PageListController($routeParams, PageService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -13,7 +13,7 @@
         function init() {
             PageService.findPagesByWebsiteId(vm.websiteId)
                 .then(renderPages, function(error) {
-                        NotificationsService.showError(error.data);
+                        console.log(error);
                     });
         }
         init();
@@ -22,7 +22,7 @@
             vm.pages = response.data;
         }
     }
-    function NewPageController($routeParams, $location, PageService, NotificationsService) {
+    function NewPageController($routeParams, $location, PageService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -31,7 +31,7 @@
         function createPage(page) {
             PageService.createPage(vm.websiteId, page)
                 .then(pageCreated, function(error) {
-                        NotificationsService.showError(error.data);
+                        console.log(error);
                     });
         }
 
@@ -48,10 +48,10 @@
             vm.pages = response.data;
         }
         function handleError(error) {
-            NotificationsService.showError(error.data);
+            console.log(error);
         }
     }
-    function EditPageController($routeParams, $location, PageService, NotificationsService) {
+    function EditPageController($routeParams, $location, PageService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -91,7 +91,7 @@
             vm.page = response.data;
         }
         function handleError(error) {
-            NotificationsService.showError(error.data);
+            console.log(error);
         }
     }
 })();
