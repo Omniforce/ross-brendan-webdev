@@ -10,8 +10,7 @@ module.exports = function(app, model) {
     app.post('/api/register', register);
     app.get('/api/loggedin', loggedin);
 
-	app.post('/api/user', createUser);
-	app.get('/api/user', handleQueries);
+	app.get('/api/user', findUserByUsername);
 	app.get('/api/user/:userId', findUserById);
 	app.put('/api/user/:userId', updateUser);
 	app.delete('/api/user/:userId', deleteUser);
@@ -76,25 +75,6 @@ module.exports = function(app, model) {
     function loggedin(req, res) {
         res.send(req.isAuthenticated() ? req.user : '0');
     }
-
-	function handleQueries(req, res) {
-		if(req.query.username && req.query.password) {
-			findUserByCredentials(req, res);
-		} else if(req.query.username) {
-			findUserByUsername(req, res);
-		}
-	}
-
-	function createUser(req, res) {
-		var user = req.body;
-
-		User.createUser(user)
-			.then(function(user) {
-				res.send(user);
-			}, function(err) {
-				res.status(500).send("Unable to create new user");
-			});
-	}
 
 	function findUserByUsername(req, res) {
 		var username = req.query.username;

@@ -10,9 +10,7 @@
             "logout"                : logout,
             "register"              : register,
             "checkLoggedIn"         : checkLoggedIn,
-            "createUser"            : createUser,
             "findUserByUsername"    : findUserByUsername,
-            "findUserByCredentials" : findUserByCredentials,
             "findUserById"          : findUserById,
             "updateUser"            : updateUser,
             "deleteUser"            : deleteUser
