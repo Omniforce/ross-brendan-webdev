@@ -72,8 +72,18 @@
         vm.uploadFile = uploadFile;
 
         function updateWidget(widget) {
-            WidgetService.updateWidget(vm.widgetId, widget)
-                .then(widgetUpdated, handleError);
+            if(editValidation(widget)) {
+                WidgetService.updateWidget(vm.widgetId, widget)
+                    .then(widgetUpdated, handleError);
+            }
+        }
+
+        function editValidation(widget) {
+            vm.nameRequired = false
+            if(!widget.name) {
+                vm.nameRequired = true;
+            }
+            return !vm.nameRequired;
         }
 
         function deleteWidget() {

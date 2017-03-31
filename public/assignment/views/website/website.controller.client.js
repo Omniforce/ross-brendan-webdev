@@ -27,8 +27,20 @@
 
         vm.createWebsite = createWebsite;
         function createWebsite(website) {
-            WebsiteService.createWebsite(vm.userId, website)
-                .then(userCreated, handleError);
+            if(createValidation(website)) {
+                WebsiteService.createWebsite(vm.userId, website)
+                    .then(userCreated, handleError);
+            }
+        }
+
+        function createValidation(website) {
+            vm.nameRequired = false;
+            if(!website) {
+                vm.nameRequired = true;
+            } else if (!website.name) {
+                vm.nameRequired = true;
+            }
+            return !vm.nameRequired;
         }
 
         function init() {
@@ -56,13 +68,25 @@
         vm.deleteWebsite = deleteWebsite;
 
         function updateWebsite(website) {
-            WebsiteService.updateWebsite(vm.websiteId, website)
-                .then(websiteUpdated, handleError);
+            if(editValidation(website)) {
+                WebsiteService.updateWebsite(vm.websiteId, website)
+                    .then(websiteUpdated, handleError);    
+            }
         }
 
         function deleteWebsite() {
             WebsiteService.deleteWebsite(vm.websiteId)
                 .then(websiteDeleted, handleError);
+        }
+
+        function editValidation(website) {
+            vm.nameRequired = false;
+            if(!website) {
+                vm.nameRequired = true;
+            } else if (!website.name) {
+                vm.nameRequired = true;
+            }
+            return !vm.nameRequired;
         }
 
         function init() {

@@ -41,8 +41,11 @@
         </ul>
     </div>
     <div class="col-sm-8 right-pane grey-border-left">
+        <div class="alert alert-danger" ng-show="model.nameRequired">
+            Name is a required field!
+        </div>
         <form>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error': model.nameRequired }">
                 <label for="name">Name</label>
                 <input ng-model="model.page.name" class="form-control" id="name" type="text" placeholder="Page Name">
             </div>

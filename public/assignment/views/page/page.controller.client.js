@@ -29,10 +29,22 @@
 
         vm.createPage = createPage;
         function createPage(page) {
-            PageService.createPage(vm.websiteId, page)
-                .then(pageCreated, function(error) {
-                        console.log(error);
-                    });
+            if(createValidation(page)) {
+                PageService.createPage(vm.websiteId, page)
+                    .then(pageCreated, function(error) {
+                            console.log(error);
+                        });    
+            }
+        }
+
+        function createValidation(page) {
+            vm.nameRequired = false;
+            if(!page) {
+                vm.nameRequired = true;
+            } else if (!page.name) {
+                vm.nameRequired = true;
+            }
+            return !vm.nameRequired;
         }
 
         function init() {
@@ -61,12 +73,24 @@
         vm.deletePage = deletePage;
 
         function updatePage(page) {
-            PageService.updatePage(vm.pageId, page)
-                .then(pageUpdated, handleError);
+            if(editValidation(page)) {
+                PageService.updatePage(vm.pageId, page)
+                    .then(pageUpdated, handleError);
+            }
         }
         function deletePage() {
             PageService.deletePage(vm.pageId)
                 .then(pageDeleted, handleError);
+        }
+
+        function editValidation(page) {
+            vm.nameRequired = false;
+            if(!page) {
+                vm.nameRequired = true;
+            } else if (!page.name) {
+                vm.nameRequired = true;
+            }
+            return !vm.nameRequired;
         }
 
         function init() {
