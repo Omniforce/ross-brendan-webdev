@@ -8,6 +8,7 @@ var api = {
     findUserById: findUserById,
     findUserByUsername: findUserByUsername,
     findUserByCredentials: findUserByCredentials,
+    findOrCreateUserByFacebookId: findOrCreateUserByFacebookId,
     updateUser: updateUser,
     deleteUser: deleteUser,
 };
@@ -34,15 +35,14 @@ function findUserByCredentials(username, password) {
     });
 }
 
+function findOrCreateUserByFacebookId(facebookId) {
+    return User.findOrCreate({'facebook.id': facebookId});
+}
+
 function updateUser(userId, user) {
     return User.findByIdAndUpdate(userId, user, { new: true });
 }
 
 function deleteUser(userId) {
     return User.findByIdAndRemove(userId);
-}
-
-function addWebsite(userId, websiteId) {
-    var change = { $push: { websites: websiteId } }
-    return User.findByIdAndUpdate(userId, change, { new: true });
 }
