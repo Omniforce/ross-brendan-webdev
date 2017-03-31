@@ -10,10 +10,31 @@
         vm.login = login;
 
         function login(user) {
-            UserService.login(user)
-                .then(success, function(error) {
-                    console.log(error);
-                });
+            if(loginValidation(user)) {
+                UserService.login(user)
+                    .then(success, function(error) {
+                        console.log(error);
+                    });
+            }
+        }
+
+        function loginValidation(user) {
+            vm.usernameRequired = false;
+            vm.passwordRequired = false;
+
+            if(!user) {
+                vm.usernameRequired = true;
+                vm.passwordRequired = true;
+            } else {
+                if (!user.username) {
+                    vm.usernameRequired = true;
+                }
+                if (!user.password) {
+                    vm.passwordRequired = true;
+                }
+            }
+
+            return !(vm.usernameRequired || vm.passwordRequired);
         }
 
         function success(response) {
@@ -27,10 +48,42 @@
         vm.register = register;
 
         function register(user) {
-            UserService.register(user)
-                .then(success, function(error) {
-                    console.log(error);
-                });
+            if(registerValidation(user)) {
+                UserService.register(user)
+                    .then(success, function(error) {
+                        console.log(error);
+                    });
+            }
+        }
+
+        function registerValidation(user) {
+            vm.usernameRequired = false;
+            vm.passwordRequired = false;
+            vm.passwordVerifyRequired = false;
+            vm.passwordMatchRequired = false;
+
+            if(!user) {
+                vm.usernameRequired = true;
+                vm.passwordRequired = true;
+                vm.passwordVerifyRequired = true;
+            } else {
+                if(!user.username) {
+                    vm.usernameRequired = true;
+                }
+                if(!user.password) {
+                    vm.passwordRequired = true;
+                }
+                if(!user.verypassword) {
+                    vm.passwordVerifyRequired = true;
+                }
+                if(user.password && user.verypassword && user.password != user.verypassword) {
+                    vm.passwordMatchRequired = true;
+                }
+            }
+
+            console.log(vm.usernameRequired, vm.passwordRequired, vm.passwordVerifyRequired, vm.passwordMatchRequired)
+
+            return !(vm.usernameRequired || vm.passwordRequired || vm.passwordVerifyRequired || vm.passwordMatchRequired)
         }
 
         function success(response) {
