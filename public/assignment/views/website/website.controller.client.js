@@ -5,14 +5,14 @@
         .controller("NewWebsiteController", NewWebsiteController)
         .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteListController($routeParams, WebsiteService, NotificationsService) {
+    function WebsiteListController($routeParams, WebsiteService) {
         var vm = this
         vm.userId = $routeParams["uid"];
 
         function init() {
             WebsiteService.findWebsitesByUser(vm.userId)
                 .then(renderWebsites, function(error) {
-                        NotificationsService.showError(error.data);
+                        console.log(error);
                     });
         }
         init();
@@ -21,14 +21,26 @@
             vm.websites = response.data;
         }
     }
-    function NewWebsiteController($routeParams, $location, WebsiteService, NotificationsService) {
+    function NewWebsiteController($routeParams, $location, WebsiteService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
 
         vm.createWebsite = createWebsite;
         function createWebsite(website) {
-            WebsiteService.createWebsite(vm.userId, website)
-                .then(userCreated, handleError);
+            if(createValidation(website)) {
+                WebsiteService.createWebsite(vm.userId, website)
+                    .then(userCreated, handleError);
+            }
+        }
+
+        function createValidation(website) {
+            vm.nameRequired = false;
+            if(!website) {
+                vm.nameRequired = true;
+            } else if (!website.name) {
+                vm.nameRequired = true;
+            }
+            return !vm.nameRequired;
         }
 
         function init() {
@@ -44,10 +56,10 @@
             vm.websites = response.data;
         }
         function handleError(error) {
-            NotificationsService.showError(error.data);
+            console.log(error);
         }
     }
-    function EditWebsiteController($routeParams, $location, WebsiteService, NotificationsService) {
+    function EditWebsiteController($routeParams, $location, WebsiteService) {
     	var vm = this;
         vm.userId = $routeParams["uid"];
         vm.websiteId = $routeParams["wid"];
@@ -56,13 +68,25 @@
         vm.deleteWebsite = deleteWebsite;
 
         function updateWebsite(website) {
-            WebsiteService.updateWebsite(vm.websiteId, website)
-                .then(websiteUpdated, handleError);
+            if(editValidation(website)) {
+                WebsiteService.updateWebsite(vm.websiteId, website)
+                    .then(websiteUpdated, handleError);    
+            }
         }
 
         function deleteWebsite() {
             WebsiteService.deleteWebsite(vm.websiteId)
                 .then(websiteDeleted, handleError);
+        }
+
+        function editValidation(website) {
+            vm.nameRequired = false;
+            if(!website) {
+                vm.nameRequired = true;
+            } else if (!website.name) {
+                vm.nameRequired = true;
+            }
+            return !vm.nameRequired;
         }
 
         function init() {
@@ -87,7 +111,7 @@
             vm.website = response.data
         }
         function handleError(error) {
-            NotificationsService.showError(error.data);
+            console.log(error);
         }
     }
 })();

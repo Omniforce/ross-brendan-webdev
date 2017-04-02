@@ -1,1 +1,1 @@
-var app = angular.module("WebAppMaker", ["ngRoute", "ngNotificationsBar", "textAngular"]);
+var app = angular.module("WebAppMaker", ["ngRoute", "textAngular"]);

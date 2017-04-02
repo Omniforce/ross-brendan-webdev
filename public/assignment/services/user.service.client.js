@@ -2,13 +2,15 @@
     angular
         .module("WebAppMaker")
         .factory("UserService", UserService);
-    
+
     function UserService($http) {
 
         var api = {
-            "createUser"            : createUser,
+            "login"                 : login,
+            "logout"                : logout,
+            "register"              : register,
+            "checkLoggedIn"         : checkLoggedIn,
             "findUserByUsername"    : findUserByUsername,
-            "findUserByCredentials" : findUserByCredentials,
             "findUserById"          : findUserById,
             "updateUser"            : updateUser,
             "deleteUser"            : deleteUser
@@ -16,6 +18,18 @@
 
         return api;
 
+        function login(user) {
+            return $http.post('/api/login', user);
+        }
+        function logout() {
+            return $http.post('/api/logout');
+        }
+        function register(user) {
+            return $http.post('/api/register', user);
+        }
+        function checkLoggedIn() {
+            return $http.get('/api/loggedin');
+        }
         function createUser(user) {
             return $http.post('/api/user', user);
         }

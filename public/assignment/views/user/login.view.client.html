@@ -1,9 +1,27 @@
 <div class="container">
 	<h1>Login</h1>
 
-	<input ng-model="model.user.username" class="form-control" type="text" placeholder="username"/>
-    <input ng-model="model.user.password" class="form-control" type="password" placeholder="password"/>
-    
+    <div class="alert alert-danger" ng-show="model.usernameRequired">
+        Username is a required field!
+    </div>
+
+    <div class="alert alert-danger" ng-show="model.passwordRequired">
+        Password is a required field!
+    </div>
+
+    <form>
+        <div class="form-group" ng-class="{ 'has-error': model.usernameRequired }">
+            <input ng-model="model.user.username" class="form-control" type="text" placeholder="username"/>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': model.passwordRequired }">
+            <input ng-model="model.user.password" class="form-control" type="password" placeholder="password"/>
+        </div>
+    </form>
+
     <a ng-click="model.login(model.user)" class="btn btn-primary btn-block">Login</a>
     <a href="#!/register" class="btn btn-success btn-block">Register</a>
+    <a href="/auth/facebook" class="btn btn-primary btn-block">
+        <span class="fa fa-facebook"></span>
+        Facebook
+    </a>
 </div>

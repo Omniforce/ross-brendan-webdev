@@ -4,7 +4,7 @@
     	.config(Config);
 })();
 
-function Config($routeProvider, notificationsConfigProvider) {
+function Config($routeProvider) {
 	$routeProvider
 		.when("/", {
 			templateUrl: "./views/user/login.view.client.html",
@@ -24,7 +24,8 @@ function Config($routeProvider, notificationsConfigProvider) {
 		.when("/user/:uid", {
 			templateUrl: "./views/user/profile.view.client.html",
 			controller: "ProfileController",
-			controllerAs: "model"
+			controllerAs: "model",
+            resolve: { "currentUser": checkLoggedIn }
 		})
 		.when("/user/:uid/website", {
 			templateUrl: "./views/website/website-list.view.client.html",
@@ -81,7 +82,20 @@ function Config($routeProvider, notificationsConfigProvider) {
 			controller: "LoginController",
 			controllerAs: "model"
 		});
+}
 
-	notificationsConfigProvider.setAutoHide(true);
-    notificationsConfigProvider.setHideDelay(3000);
+function checkLoggedIn( $rootScope, $location, $http ) {
+    return $http({
+        method: 'GET',
+        'url': '/api/loggedin'
+    })
+    .then( res => {
+        if ( res.data === '0' ) {
+            $location.url('/');
+        } else {
+            return res.data;
+        }
+    }, err => {
+        $location.url('/');
+    });
 }
