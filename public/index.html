@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Web Dev Course Home Page</title>
+
+    <link href="style.css" rel="stylesheet" />
 </head>
+
 <body>
-    <h1>Web Dev Course Home Page</h1>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        <symbol id="hexagon" viewbox="0,0,300,300">
+            <polygon points="150 0 280 75 280 225 150 300 20 225 20 75"></polygon>
+        </symbol>
+    </svg>
 
-    <p>
-        Customize this home page to your linking.
-    </p>
-
-    <h2>Required links</h2>
-    <ul>
-        <li>
-            <a href="project/index.html">Project</a>
-        </li>
-        <li>
-            <a href="assignment/index.html">Assignment</a>
-        </li>
-        <li>
-            <a target="_blank" href="https://github.com/Omniforce/ross-brendan-webdev">My Public Repository</a>
-        </li>
-    </ul>
+    <div class="container">
+        <div class="centered">
+            <div id="row1" class="row">
+                <a href="project/index.html" class="hex-container">
+                    <svg id="hex1" class="hexagon">
+                        <use xlink:href="#hexagon"/>
+                    </svg>
+                    <div class="info"><p>Project</p></div>
+                </a>
+                <a href="assignment/index.html" class="hex-container">
+                    <svg id="hex2" class="hexagon"><use xlink:href="#hexagon"/></svg>
+                    <div class="info"><p>Assignment</p></div>
+                </a>
+            </div>
+            <div id="row2" class="row">
+                <div class="spacer"></div>
+                <a target="_blank" href="https://github.com/Omniforce/ross-brendan-webdev" id="bottom-hex" class="hex-container">
+                    <svg id="hex3" class="hexagon"><use xlink:href="#hexagon"/></svg>
+                    <div class="info"><p>Github</p></div>
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
