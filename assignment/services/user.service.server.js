@@ -26,9 +26,9 @@ module.exports = function(app, model) {
         });
 
     var facebookConfig = {
-        clientID     : "282818828807390",
-        clientSecret : "c916da52e3cd052c1b768a23b4f836de",
-        callbackURL  : 'http://localhost:3000/auth/facebook/callback'
+        clientID     : process.env.FACEBOOK_CLIENT_ID,
+        clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
     };
 
     passport.serializeUser(serializeUser);
