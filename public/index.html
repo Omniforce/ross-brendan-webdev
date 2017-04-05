@@ -15,25 +15,41 @@
         </symbol>
     </svg>
 
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0">
+        <defs>
+            <clipPath id="hex-clip" clipPathUnits="objectBoundingBox">
+                <polygon points="0.5 0 0.86 0.25 0.86 0.75 0.5 1 0.14 0.75 0.14 0.25"></polygon>
+            </clipPath>
+        </defs>
+    </svg>
+
     <div class="container">
         <div class="centered">
             <div id="row1" class="row">
-                <a href="project/index.html" class="hex-container">
+                <div class="spacer-left"></div>
+                <a href="assignment/index.html" class="hex-container top-hex">
+                    <svg id="hex2" class="hexagon"><use xlink:href="#hexagon"/></svg>
+                    <div class="info"><p>Assignment</p></div>
+                </a>
+                <a href="project/index.html" class="hex-container top-hex">
                     <svg id="hex1" class="hexagon">
                         <use xlink:href="#hexagon"/>
                     </svg>
                     <div class="info"><p>Project</p></div>
                 </a>
-                <a href="assignment/index.html" class="hex-container">
-                    <svg id="hex2" class="hexagon"><use xlink:href="#hexagon"/></svg>
-                    <div class="info"><p>Assignment</p></div>
-                </a>
+                <div class="spacer-right"></div>
             </div>
             <div id="row2" class="row">
-                <div class="spacer"></div>
-                <a target="_blank" href="https://github.com/Omniforce/ross-brendan-webdev" id="bottom-hex" class="hex-container">
+                <a target="_blank" href="https://github.com/Omniforce/ross-brendan-webdev" class="hex-container bottom-hex">
                     <svg id="hex3" class="hexagon"><use xlink:href="#hexagon"/></svg>
                     <div class="info"><p>Github</p></div>
+                </a>
+                <a class="face hex-container bottom-hex">
+                    <img src='assets/photo123.jpg' class="face-image"/>
+                </a>
+                <a target="_blank" href="#" class="hex-container bottom-hex">
+                    <svg id="hex4" class="hexagon"><use xlink:href="#hexagon"/></svg>
+                    <div class="info"><p>Demo</p></div>
                 </a>
             </div>
         </div>
